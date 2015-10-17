@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>llxwj</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on llxwj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 17 Oct 2015 07:17:05 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Linux环境配置</title>
+      <link>http://localhost:1313/post/linux/</link>
+      <pubDate>Sat, 17 Oct 2015 07:17:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux/</guid>
+      <description>
+
+&lt;h2 id=&#34;目前开发系统的软件环境:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;目前开发系统的软件环境&lt;/h2&gt;
+
+&lt;p&gt;软件环境&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install bison flex libncurses5-dev libncursesw5-dev 
+sudo apt-get install zlib1g-dev
+sudo apt-get install nfs-kernel-server openssh-server 
+sudo apt-get install vim vim-gtk ctags
+sudo apt-get install meld dia minicom searchmonkey
+sudo apt-get install regexxer
+sudo apt-get install curl
+sudo apt-get install libxv-dev(for sdl1.2.15)
+qtcreator(binary)
+golang(binary)
+liteide(binary) 
+sdl 1.2.15(source,configure/make/make install)
+sdl_ttf 2.0.11(source,configure/make/make install)
+freetype 2.6(source,configure/make/make install)
+libdvbpsi 2.0.0(source,configure/make/make install)
+cunit 2.1.3(source,aclocal/autoconf/autoheader/automake/configure/make/make install)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编译SDL时遇到如下的问题:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
+In file included from ./src/video/x11/SDL_x11video.h:50:0,
+                 from ./src/video/x11/SDL_x11dga_c.h:24,
+                 from ./src/video/x11/SDL_x11dga.c:30:
+./src/video/x11/SDL_x11dyn.h:45:33: fatal error: X11/extensions/XShm.h: No such file or directory
+ #include &amp;lt;X11/extensions/XShm.h&amp;gt;
+                                 ^
+compilation terminated.
+make: *** [build/SDL_x11dga.lo] Error 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过如下的方法安装一个开发包,然后再次编译就正常了.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following extra packages will be installed:
+  libxext-dev x11proto-video-dev x11proto-xext-dev
+Suggested packages:
+  libxext-doc
+The following NEW packages will be installed:
+  libxext-dev libxv-dev x11proto-video-dev x11proto-xext-dev
+0 upgraded, 4 newly installed, 0 to remove and 146 not upgraded.
+Need to get 342 kB of archives.
+After this operation, 1,414 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty/main x11proto-xext-dev all 7.3.0-1 [212 kB]
+Get:2 http://archive.ubuntu.com/ubuntu/ trusty-updates/main libxext-dev i386 2:1.3.2-1ubuntu0.0.14.04.1 [79.8 kB]
+Get:3 http://archive.ubuntu.com/ubuntu/ trusty/main x11proto-video-dev all 2.3.2-1 [17.5 kB]
+Get:4 http://archive.ubuntu.com/ubuntu/ trusty/main libxv-dev i386 2:1.0.10-1 [32.1 kB]
+Fetched 342 kB in 6s (54.8 kB/s)                                               
+Selecting previously unselected package x11proto-xext-dev.
+(Reading database ... 181064 files and directories currently installed.)
+Preparing to unpack .../x11proto-xext-dev_7.3.0-1_all.deb ...
+Unpacking x11proto-xext-dev (7.3.0-1) ...
+Selecting previously unselected package libxext-dev:i386.
+Preparing to unpack .../libxext-dev_2%3a1.3.2-1ubuntu0.0.14.04.1_i386.deb ...
+Unpacking libxext-dev:i386 (2:1.3.2-1ubuntu0.0.14.04.1) ...
+Selecting previously unselected package x11proto-video-dev.
+Preparing to unpack .../x11proto-video-dev_2.3.2-1_all.deb ...
+Unpacking x11proto-video-dev (2.3.2-1) ...
+Selecting previously unselected package libxv-dev:i386.
+Preparing to unpack .../libxv-dev_2%3a1.0.10-1_i386.deb ...
+Unpacking libxv-dev:i386 (2:1.0.10-1) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up x11proto-xext-dev (7.3.0-1) ...
+Setting up libxext-dev:i386 (2:1.3.2-1ubuntu0.0.14.04.1) ...
+Setting up x11proto-video-dev (2.3.2-1) ...
+Setting up libxv-dev:i386 (2:1.0.10-1) ...
+/sdl/SDL-1.2.15 $
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在安装cunit时遇到&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;configure.in:211: error: required file &#39;config.h.in&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决方法是在执行&lt;code&gt;automake --add-missing&lt;/code&gt;之前执行autoheader,生成config.h.in&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed: can&#39;t read ./ltmain.sh: No such file or directory
+sed: can&#39;t read libtoolT: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
+默认执行make install后,没有安装到系统的/usr/local目录下,是安装到
+/home/user/CUnitHome下了.可以将include/lib/pkgconfig/目录下的文件分别拷贝到相
+应的目录下.&lt;/p&gt;
+
+&lt;p&gt;一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决方法:&lt;code&gt;sudo ldconfig&lt;/code&gt;
+Run ldconfig as root to update the cache - if that still doesn&amp;rsquo;t help, you need to add the path to the file ld.so.conf (just type it in on its own line) or better yet, add the entry to a new file (easier to delete) in directory ld.so.conf.d.&lt;/p&gt;
+
+&lt;p&gt;如果出现如下的错误,干脆直接用&lt;code&gt;./configure --prefix=/usr/local&lt;/code&gt; 然后直接&lt;code&gt;make install&lt;/code&gt;搞定.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ldconfig
+/sbin/ldconfig.real: /usr/local/lib/libcunit.so.1 is not a symbolic link
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;交叉编译cunit&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;字体环境&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;monaco-font 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;修改磁盘的卷标名称:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;修改磁盘的卷标名称&lt;/h2&gt;
+
+&lt;h2 id=&#34;ext2-ext3-ext4:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;ext2/ext3/ext4&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;NAME
+	   e2label - Change the label on an ext2/ext3/ext4 filesystem
+
+SYNOPSIS
+	   e2label device [ new-label ]
+
+DESCRIPTION
+	   e2label will display or change the filesystem label on the ext2, ext3, or ext4 filesystem located on device.
+
+	   If the optional argument new-label is not present, e2label will simply display the current filesystem label.
+
+	   If  the  optional  argument new-label is present, then e2label will set the filesystem label to be new-label.  Ext2 filesystem labels can be at most 16 characters long; if new-label is longer than 16 characters, e2label will
+	   truncate it and print a warning message.
+
+	   It is also possible to set the filesystem label using the -L option of tune2fs(8).
+
+AUTHOR
+	   e2label was written by Theodore Ts&#39;o (tytso@mit.edu).
+
+AVAILABILITY
+	   e2label is part of the e2fsprogs package and is available from http://e2fsprogs.sourceforge.net.
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例子&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ e2label /dev/sdb label_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;linuxmint17-2-中任务栏上应用程序窗口图标丢失问题:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;LinuxMint17.2 中任务栏上应用程序窗口图标丢失问题&lt;/h2&gt;
+
+&lt;p&gt;这里所说的窗口图标即不是左边的快捷启动方式,也不是右边的系统托盘图标,而是正中间的那个点击后可以切换应用程序的窗口的图标,就是最小化到任务栏的图标还带有应用程序的标题.总之我莫名其妙的发现我每打开一个程序都不在任务栏之上,查看后台进程,却有我刚才打开的程序,后来经同事指点,原来是任务栏上有可以拖动的手柄,拖动后,拖到最大的位置,所有打开的程序都可以看见了,在Windows下任务栏是可以锁定的,但是在LinuxMint中找不到锁定的选项配置.&lt;/p&gt;
+
+&lt;h2 id=&#34;linuxmint17-2-sudo不用输入密码的配置:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;LinuxMint17.2 sudo不用输入密码的配置&lt;/h2&gt;
+
+&lt;p&gt;把 &lt;code&gt;/etc/sudoers&lt;/code&gt; 由&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#
+# This file MUST be edited with the &#39;visudo&#39; command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path=&amp;quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;quot;
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on &amp;quot;#include&amp;quot; directives:
+
+#includedir /etc/sudoers.d
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;更改为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#
+# This file MUST be edited with the &#39;visudo&#39; command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path=&amp;quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;quot;
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) NOPASSWD:ALL
+
+# See sudoers(5) for more information on &amp;quot;#include&amp;quot; directives:
+
+#includedir /etc/sudoers.d
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>VirtualBox使用记录</title>
+      <link>http://localhost:1313/post/virtualbox/</link>
+      <pubDate>Sat, 17 Oct 2015 07:12:07 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/virtualbox/</guid>
+      <description>
+
+&lt;p&gt;#VirtualBox 5.0.0-101573试用&lt;/p&gt;
+
+&lt;p&gt;最近一直使用的是VitualBox4.3.12-93733,Host系统是Windows7,Guest系统是LinuxMint17.1.使用覆盖安装的方法直接安装VirtualBox5.0.0,然后直接就把之前安装的Guest系统启动了,启动之后提示Guest Additions版本过低,直接就&amp;rdquo;安装增强组件的&amp;rdquo;方法.执行sudo ./VBoxLinuxAdditions.run,一切顺利后再重启进入Guest系统,这时候按下右Ctrl+F全屏,突然报出如下的错误,而虚拟机直接异常退出.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;image/virtualbox_windows7(host&#34; alt=&#34;&#34; /&gt;
+_linuxmint171(guest)_change_full_screen_mode_failed.png)&lt;/p&gt;
+
+&lt;p&gt;反复重启了几次,只要全屏都报这个问题,之后认为是不是5.0.0版本有Bug,这时就打算退回到4.3.x版本了,打算下载一个最新的4.3.x:VirtualBox-4.3.30-101610-Win.exe,这个版本使用直接覆盖安装了之后,还是不能全屏,全屏的时候也报错,注意,这时候没有安装VBoxGuestAdditions.iso,没办法就打算不用全屏模式了,开始一如既往的开发模式了.突然发现在剪切板在Host系统与Guest系统中不能共享了,这下才意识到更新虚拟机带进来了一些麻烦问题.&lt;/p&gt;
+
+&lt;p&gt;没办法,只能恢复到原来版本的VitualBox了,再次覆盖安装Virtulbox4.3.12,安装完成后,再次启动虚拟机发现,虚拟机中图形驱动工作不正常了,就是虚拟机窗口最大化后,虚拟机的窗口没有跟着自动变大,这时候想起,Guest系统中运行的还是5.0.0的GuestAdditions,要把GuestAdditions的版本恢复到原来版本的,再次使用&amp;rdquo;安装增强组件&amp;rdquo;的方法安装时,报了一个严重的问题:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Error mounting /dev/sr0 at /media/lili/VBOXADDITIONS_4.3.12_93733: Command-line `mount -t &amp;quot;iso9660&amp;quot; -o &amp;quot;uhelper=udisks2,nodev,nosuid,uid=1000,gid=1000,iocharset=utf8,mode=0400,dmode=0500&amp;quot; &amp;quot;/dev/sr0&amp;quot; &amp;quot;/media/lili/VBOXADDITIONS_4.3.12_93733&amp;quot;&#39; exited with non-zero exit status 32: mount: unknown filesystem type &#39;iso9660&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就不对了,之前虚拟机的光驱是可以自动挂载的,现在就有问题了:&lt;/p&gt;
+
+&lt;p&gt;在网络上也有一些遇到的问题,不知道是否和我遇到的相同:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://forums.virtualbox.org/viewtopic.php?f=3&amp;amp;t=65460&#34;&gt;https://forums.virtualbox.org/viewtopic.php?f=3&amp;amp;t=65460&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://forums.virtualbox.org/viewtopic.php?f=3&amp;amp;t=67782&amp;amp;p=321318#p321318&#34;&gt;https://forums.virtualbox.org/viewtopic.php?f=3&amp;amp;t=67782&amp;amp;p=321318#p321318&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://askubuntu.com/questions/596998/unable-to-install-guest-additions-unknown-filesystem-type-iso9660&#34;&gt;http://askubuntu.com/questions/596998/unable-to-install-guest-additions-unknown-filesystem-type-iso9660&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;上面的链接提到了两个解决方法:&lt;/p&gt;
+
+&lt;p&gt;第一个方法:
+&amp;gt; I was able to resolve the mounting issue by the reinstalling the linux image:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;sudo apt-get install &amp;ndash;reinstall linux-image-$(uname -r)&lt;/p&gt;
+
+&lt;p&gt;BTW, it all started with upgrading VirtualBox. Bidirectional clipboard stopped working so I tried to reinsert Guest Additions ISO. This caused above stuff. Now, Guest Additions are mounted back, but clipboard wtill doesn&amp;rsquo;t work&amp;hellip;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I had the same problems today (clipboard broken, no CD image would mount). Your solution plus reinstalling Guest Additions solves both. –  Mark Smith Apr 24 at 10:42&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第二个方法:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Try manually mounting it:&lt;/p&gt;
+
+&lt;p&gt;Open a terminal.
+Type the following commands:&lt;/p&gt;
+
+&lt;p&gt;sudo mount /dev/sr0 /mnt&lt;/p&gt;
+
+&lt;p&gt;ls -l /mnt&lt;/p&gt;
+
+&lt;p&gt;Then if the CD contents was shown, open /mnt in Nautilus (a.k.a File Manager) and intall the Guest Additions.&lt;/p&gt;
+
+&lt;p&gt;If those steps didn&amp;rsquo;t work, try this:&lt;/p&gt;
+
+&lt;p&gt;Download the guest additions ISO from the VM (via virtualbox website).
+Right click on it &amp;ndash;&amp;gt; Open with&amp;hellip; &amp;ndash;&amp;gt; Disk image mounter.
+Open the newly mounted disk.
+&amp;gt;Hi Helio, I&amp;rsquo;ve tried both it didn&amp;rsquo;t work. The same error. Please see edited answer –  Oleg Shirokikh Mar 15 at 9:03&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第一种方法没有试,但是感觉好像应该是能起作用的,第二种方法试过了,还是不行.&lt;/p&gt;
+
+&lt;p&gt;在&lt;a href=&#34;http://bigamekiller.blog.sohu.com/159956812.html&#34;&gt;http://bigamekiller.blog.sohu.com/159956812.html&lt;/a&gt; 有如下的说明:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;出现mount: unknown filesystem type ‘iso9660′错误原因&lt;/p&gt;
+
+&lt;p&gt;如果你使用mount 命令在linux下面挂载iso文件时，出现mount: unknown filesystem type ‘iso9660′错误。&lt;/p&gt;
+
+&lt;p&gt;原因是：你的内核中没有支持ISO9660的模块。&lt;/p&gt;
+
+&lt;p&gt;解决方法：你只要在root权限下登陆，升级你的内核就行了。&lt;/p&gt;
+
+&lt;p&gt;以Ubuntu 为例：&lt;/p&gt;
+
+&lt;p&gt;你可以运行以下命令：&lt;/p&gt;
+
+&lt;p&gt;aptitude update&lt;/p&gt;
+
+&lt;p&gt;aptitude upgrade&lt;/p&gt;
+
+&lt;p&gt;然后用一下命令重启电脑：&lt;/p&gt;
+
+&lt;p&gt;shut down -r now&lt;/p&gt;
+
+&lt;p&gt;在此执行mount命令就可以 了。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;进入Windows7的软件卸载管理中,意外的发现有两个VirtualBox4.3.12与VirtualBox4.3.30,感觉是最后安装VirtualBox4.3.12的时候,没有自动把VirtualBox4.3.30卸载掉,执行了一下手动卸载4.3.30,再次启动虚拟机,打算进入Guest系统,这时候,故障又来了:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;未能启动虚拟电脑 LinuxMint2 ，由于下述物理网卡未找到:
+
+Realtek PCIe GBE Family Controller (adapter 2), VirtualBox Host-Only Ethernet Adapter (adapter 3)。
+
+你可修改虚拟电脑的网络设置或停用之。
+
+重新安装后就可以解决。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;image/virtualbox_cannot_fount_adapter_interface.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;把4.3.12重新安装了之后,上面的问题就解决了,应该是4.3.30卸载的时候把虚拟机网卡组件都卸载了,重新安装后就全部又安装回来了.&lt;/p&gt;
+
+&lt;p&gt;启动后的想法,就是通过某种方法,先把5.0.0的GuestAdditions卸载或恢复到4.3.12版本的,执行VirtualBox的Share folders时,发现也不能挂载了,报unknow devices.&lt;/p&gt;
+
+&lt;p&gt;想到自己的开发机器上配置过NFS系统,可以把iso文件直接通过NFS系统上传到虚拟机中,之后经同事提醒,可以通过SSH登录上去,用scp直接把本地的文件上传到Guest系统中,用这个方法把ISO上传后,还是不能打开,但是能解压,直接解压后,为VBoxLiunxGuestAdditions.run添加可执行权限后,把GuestAdditions安装成功了,再次重启后发现
+窗口还是没有自动变大.&lt;/p&gt;
+
+&lt;p&gt;期间也试过用 sudo apt-get install virtualbox-guest-dkms 依然不能解决问题,现在感觉终于把一个开发用的Guest系统搞坏了.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;image/virtualbox_device_driver_error.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;然后cat /proc/filesystems&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nodev	sysfs
+nodev	rootfs
+nodev	ramfs
+nodev	bdev
+nodev	proc
+nodev	cgroup
+nodev	cpuset
+nodev	tmpfs
+nodev	devtmpfs
+nodev	debugfs
+nodev	securityfs
+nodev	sockfs
+nodev	pipefs
+nodev	anon_inodefs
+nodev	devpts
+	ext3
+	ext2
+	ext4
+nodev	hugetlbfs
+	vfat
+nodev	ecryptfs
+	fuseblk
+nodev	fuse
+nodev	fusectl
+nodev	pstore
+nodev	mqueue
+nodev	vboxsf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;发现里边真的没有iso9660,怎么突然就没有了,不知道那里去了,下面是正常的:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nodev	sysfs
+nodev	rootfs
+nodev	ramfs
+nodev	bdev
+nodev	proc
+nodev	cgroup
+nodev	cpuset
+nodev	tmpfs
+nodev	devtmpfs
+nodev	debugfs
+nodev	securityfs
+nodev	sockfs
+nodev	pipefs
+nodev	devpts
+	ext3
+	ext2
+	ext4
+nodev	hugetlbfs
+	vfat
+nodev	ecryptfs
+	fuseblk
+nodev	fuse
+nodev	fusectl
+nodev	pstore
+nodev	mqueue
+nodev	rpc_pipefs
+nodev	nfs
+nodev	nfs4
+nodev	nfsd
+nodev	binfmt_misc
+nodev	vboxsf
+	iso9660
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;期间还尝试过进入Recovery Mode,打算发现也没有作用,进入Recovery Mode的方法如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://forums.linuxmint.com/viewtopic.php?f=90&amp;amp;t=110111&#34;&gt;http://forums.linuxmint.com/viewtopic.php?f=90&amp;amp;t=110111&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Hold shift during boot to get GRUB to show (it is hidden by default if you have but one operating system installed). In the GRUB menu you can choose the second option, which is the recovery mode. In recovery mode you will get a menu to select what you want to do. One of the options is to drop to a root console. After providing the root password (by default the same password as you gave for the user created during installation), you will be on a virtual console logged in as root.&lt;/p&gt;
+
+&lt;p&gt;To make GRUB display by default, you need to change a little bit of configuration. Open a terminal, and type:&lt;/p&gt;
+
+&lt;p&gt;sudo nano /etc/default/grub&lt;/p&gt;
+
+&lt;p&gt;Comment the following lines in your file, by putting a # character in front of the line:&lt;/p&gt;
+
+&lt;p&gt;GRUB_HIDDEN_TIMEOUT=0&lt;/p&gt;
+
+&lt;p&gt;GRUB_HIDDEN_TIMEOUT_QUIET=true&lt;/p&gt;
+
+&lt;p&gt;Then change the value after the = sign on the next line in your file, to whatever many seconds you want the GRUB menu to show and wait for you to press a key before it boots the default option. Personally, I&amp;rsquo;ve set it to 3 seconds. Enough to notice it is there, not enough to annoy me :wink:)&lt;/p&gt;
+
+&lt;p&gt;GRUB_TIMEOUT=3&lt;/p&gt;
+
+&lt;p&gt;Update these settings as needed and save &amp;amp; close the file (Ctrl+O, Enter, Ctrl+X). Then run:&lt;/p&gt;
+
+&lt;p&gt;sudo update-grub2&lt;/p&gt;
+
+&lt;p&gt;to commit the changes.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;再次开机就能进入Grub菜单,可以选择Recovery Mode了.&lt;/p&gt;
+
+&lt;p&gt;这里再提到一个关于开机自动挂载VirtualBox 的Share Folders的方法:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://forum.ubuntu.org.cn/viewtopic.php?f=86&amp;amp;t=399216&amp;amp;start=15&#34;&gt;http://forum.ubuntu.org.cn/viewtopic.php?f=86&amp;amp;t=399216&amp;amp;start=15&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Oracle VM VirtualBox如何自动挂载共享文件夹&lt;/p&gt;
+
+&lt;p&gt;win7系统下，用Oracle VM VirtualBox虚拟安装了ubuntu 12.04。安装了增强功能包(Guest Additions)后，在Oracle VM VirtualBox的设置页面，设置了共享，如下图&lt;/p&gt;
+
+&lt;p&gt;在ubuntu的终端，执行
+代码:
+sudo mkdir /mnt/share
+sudo mount -t vboxsf router /mnt/share&lt;/p&gt;
+
+&lt;p&gt;将router文件夹挂载到了mnt/share目录下。
+不想每次开机都要重新挂载，如是修改了etc/fstab文件，添加
+代码:
+sharing /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0&lt;/p&gt;
+
+&lt;p&gt;但是ubuntu重启后，每次还是得手动挂载。请大家指点一下！&lt;/p&gt;
+
+&lt;p&gt;不是在分配共享空间时有个auto mount选项吗？&lt;/p&gt;
+
+&lt;p&gt;win7系统下，用Oracle VM VirtualBox虚拟安装了ubuntu 12.04。安装了增强功能包(Guest Additions)后，在Oracle VM VirtualBox的设置页面，设置了共享，如下图
+附件:
+sshot-1.png
+在ubuntu的终端，执行
+代码:
+sudo mkdir /mnt/share
+sudo mount -t vboxsf router /mnt/share&lt;/p&gt;
+
+&lt;p&gt;将router文件夹挂载到了mnt/share目录下。
+不想每次开机都要重新挂载，如是修改了etc/fstab文件，添加
+代码:
+sharing /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0&lt;/p&gt;
+
+&lt;p&gt;但是ubuntu重启后，每次还是得手动挂载。请大家指点一下！&lt;/p&gt;
+
+&lt;p&gt;代码:
+sharedfolder   /mnt/share  vboxsf defaults 0 0&lt;/p&gt;
+
+&lt;p&gt;win7系统下，用Oracle VM VirtualBox虚拟安装了ubuntu 12.04。安装了增强功能包(Guest Additions)后，在Oracle VM VirtualBox的设置页面，设置了共享，如下图
+附件:
+附件 sshot-1.png 已经无效&lt;/p&gt;
+
+&lt;p&gt;在ubuntu的终端，执行
+代码:
+sudo mkdir /mnt/share
+sudo mount -t vboxsf router /mnt/share&lt;/p&gt;
+
+&lt;p&gt;将router文件夹挂载到了mnt/share目录下。
+不想每次开机都要重新挂载，如是修改了etc/fstab文件，添加
+代码:
+sharing /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0&lt;/p&gt;
+
+&lt;p&gt;但是ubuntu重启后，每次还是得手动挂载。请大家指点一下！&lt;/p&gt;
+
+&lt;p&gt;代码:
+sharedfolder   /mnt/share  vboxsf defaults 0 0&lt;/p&gt;
+
+&lt;p&gt;多谢回复，已经改成了sharedfolder /mnt/share vboxsf defaults 0 0，但是启动时有这样的错误提示
+附件:
+sshot-2.png
+sshot-2.png [ 20.1 KiB | 被浏览 18644 次 ]&lt;/p&gt;
+
+&lt;p&gt;router /mnt/share vboxsf defaults 0 0&lt;/p&gt;
+
+&lt;p&gt;记忆中第一个参数应该是共享名的吧。&lt;/p&gt;
+
+&lt;p&gt;郁闷，修改fastab的语句变成了
+代码:
+router /mnt/share vboxsf defaults 0 0&lt;/p&gt;
+
+&lt;p&gt;后，虽然启动没有错误提示，但是进入ubuntu系统后，打开共享的文件夹，是空白，需要再执行
+代码:
+sudo mount -t vboxsf router /mnt/share&lt;/p&gt;
+
+&lt;p&gt;才可以看到共享的文件夹里面的内容&lt;/p&gt;
+
+&lt;p&gt;我也是这样,郁闷死了,我是的debian 下的virtualbox里再装个debian ,每次都要手动mount&lt;/p&gt;
+
+&lt;p&gt;sharedfolder /mnt/share vboxsf defaults 0 0
+或者
+sharefolder /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0
+都可以，
+但是前提是要取消掉虚拟机设置里面的自动挂载选项。&lt;/p&gt;
+
+&lt;p&gt;现在还需要输入vboxsf这样的命令行？&lt;/p&gt;
+
+&lt;p&gt;win7系统下，用Oracle VM VirtualBox虚拟安装了ubuntu 12.04。安装了增强功能包(Guest Additions)后，在Oracle VM VirtualBox的设置页面，设置了共享，如下图
+附件:
+sshot-1.png
+在ubuntu的终端，执行
+代码:
+sudo mkdir /mnt/share
+sudo mount -t vboxsf router /mnt/share&lt;/p&gt;
+
+&lt;p&gt;将router文件夹挂载到了mnt/share目录下。
+不想每次开机都要重新挂载，如是修改了etc/fstab文件，添加
+代码:
+sharing /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0&lt;/p&gt;
+
+&lt;p&gt;但是ubuntu重启后，每次还是得手动挂载。请大家指点一下！&lt;/p&gt;
+
+&lt;p&gt;大部分网络资料都是说在 /etc/fstab 文件中追加
+VirtualBox虚拟机文件夹共享挂载命令 “ sharing /mnt/share vboxsf defaults 0 0 ”，其实是错误的，
+因为系统调用fstab的时候，Virtualbox的共享目录的模块还没有加载，所以每次加载都会失败，最终的解决方案如下：
+在文件 /etc/rc.local 中（用root用户）追加如下命令
+mount -t vboxsf sharing /mnt/share&lt;/p&gt;
+
+&lt;p&gt;最后重启系统.&lt;/p&gt;
+
+&lt;p&gt;为什么在文件 /etc/rc.local 中（用root用户）追加如下命令
+mount -t vboxsf sharing /mnt/share
+还是不行？&lt;/p&gt;
+
+&lt;p&gt;为什么在文件 /etc/rc.local 中（用root用户）追加如下命令
+mount -t vboxsf sharing /mnt/share
+还是不行？&lt;/p&gt;
+
+&lt;p&gt;我按照这个方法终于成功了。
+我的主机系统是win8，之前也是因为虚拟系统无法挂载而纠结。&lt;/p&gt;
+
+&lt;p&gt;建议在修改完文件后，先在vb上删除原共享文件夹的路径，重新选择连接一遍，再重启。我是这么做的，然后实现了自动加载&amp;hellip; :em05&lt;/p&gt;
+
+&lt;p&gt;lipengwelcome 写道:
+sharedfolder /mnt/share vboxsf defaults 0 0
+或者
+sharefolder /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0
+都可以，
+但是前提是要取消掉虚拟机设置里面的自动挂载选项。&lt;/p&gt;
+
+&lt;p&gt;12楼是正解。刚才尝试的时候，在添加了“sharefolder /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0”的情况下，虚拟机自动挂载点上，开机后没有挂载；去掉以后再开机，就自动挂载了。&lt;/p&gt;
+
+&lt;p&gt;win7系统下，用Oracle VM VirtualBox虚拟安装了ubuntu 12.04。安装了增强功能包(Guest Additions)后，在Oracle VM VirtualBox的设置页面，设置了共享，如下图
+附件:
+sshot-1.png
+在ubuntu的终端，执行
+代码:
+sudo mkdir /mnt/share
+sudo mount -t vboxsf router /mnt/share&lt;/p&gt;
+
+&lt;p&gt;将router文件夹挂载到了mnt/share目录下。
+不想每次开机都要重新挂载，如是修改了etc/fstab文件，添加
+代码:
+sharing /mnt/share vboxsf rw,gid=100,uid=1000,auto 0 0&lt;/p&gt;
+
+&lt;p&gt;但是ubuntu重启后，每次还是得手动挂载。请大家指点一下！&lt;/p&gt;
+
+&lt;p&gt;大部分网络资料都是说在 /etc/fstab 文件中追加
+VirtualBox虚拟机文件夹共享挂载命令 “ sharing /mnt/share vboxsf defaults 0 0 ”，其实是错误的，
+因为系统调用fstab的时候，Virtualbox的共享目录的模块还没有加载，所以每次加载都会失败，最终的解决方案如下：
+在文件 /etc/rc.local 中（用root用户）追加如下命令
+mount -t vboxsf sharing /mnt/share&lt;/p&gt;
+
+&lt;p&gt;最后重启系统.&lt;/p&gt;
+
+&lt;p&gt;使用这种方式成功.&lt;/p&gt;
+
+&lt;p&gt;我也遇到这个问题，然后详细的查看了VBOX的帮助，终于发现的问题所在。
+若在设置共享目录时勾选了“自动挂载”，则guest中的LINUX里什么都不用动，系统会自动在“/media”里建立以“sf_”为前缀并加上共享名的挂载点，比如你设置的共享名是“share”，那么这个挂载点就是“sf_share”，系统一启动就自动挂载好了。不过因为这个挂载点默认的权限是给vbox创建的用户组“vboxsf”的，你会无法查看，只需要修改“/etc/group”，把自己的用户名加入到“vboxsf”组就可以了。若这种情况下你又去手动修改“fstab”以实现自动挂载当然会失败。所以，若想通过“fstab”自动挂载，就要关掉共享目录设置中的“自动挂载”。因此不是什么读取“fstab”时vbox共享模块还没有加载，否则的话vbox这一“自动挂载”岂不太弱智了？呵呵。&lt;/p&gt;
+
+&lt;p&gt;我也遇到这个问题，然后详细的查看了VBOX的帮助，终于发现的问题所在。
+若在设置共享目录时勾选了“自动挂载”，则guest中的LINUX里什么都不用动，系统会自动在“/media”里建立以“sf_”为前缀并加上共享名的挂载点，比如你设置的共享名是“share”，那么这个挂载点就是“sf_share”，系统一启动就自动挂载好了。不过因为这个挂载点默认的权限是给vbox创建的用户组“vboxsf”的，你会无法查看，只需要修改“/etc/group”，把自己的用户名加入到“vboxsf”组就可以了。若这种情况下你又去手动修改“fstab”以实现自动挂载当然会失败。所以，若想通过“fstab”自动挂载，就要关掉共享目录设置中的“自动挂载”。因此不是什么读取“fstab”时vbox共享模块还没有加载，否则的话vbox这一“自动挂载”岂不太弱智了？呵呵。&lt;/p&gt;
+
+&lt;p&gt;#UUID=db5269df-5822-4682-8b24-1eeca273aedc /home/lili/hi3716mv310 ext4    errors=remount-ro 0       1
+/dev/sdb /home/lili/hi3716mv310 ext4    errors=remount-ro 0       1
+share /home/lili/share vboxsf  rw,user,noauto,exec 0       1&lt;/p&gt;
+
+&lt;h1 id=&#34;swap-was-on-dev-sda5-during-installation:30a5780e137d7dde12885b5bd5d17377&#34;&gt;swap was on /dev/sda5 during installation&lt;/h1&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>windows操作系统技巧合集</title>
+      <link>http://localhost:1313/post/windows/</link>
+      <pubDate>Sat, 17 Oct 2015 07:07:14 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/windows/</guid>
+      <description>
+
+&lt;h1 id=&#34;windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;Windows7安全模式下可以用MSI卸载软件&lt;/h1&gt;
+
+&lt;p&gt;把下面这个语句写入到一个批处理中,在安全模式下用管理员权限导入到注册表中,就可以在安全模式下卸载软件了.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Minimal\MSIServer /VE /T REG_SZ /F /D &amp;quot;Service&amp;quot; 
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

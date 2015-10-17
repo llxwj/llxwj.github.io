@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Linux环境配置 &middot; llxwj </title>
+
+  
+  <link rel="stylesheet" href="http://localhost:1313//css/poole.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/g.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/tomorrow-night-eighties.css">
+
+  
+  <script src="http://localhost:1313//js/jquery-1.9.1.min.js"></script>
+  <script src="http://localhost:1313//js/pretty.print.js"></script>
+
+  
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="llxwj" />
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1><a href="/" style="text-decoration:none;">llxwj</a></h1>
+    </div>
+
+<ul class="catlist">
+  <li><a href="/post/"><span class="navlink">博客</span></a></li>
+  <li><a href="/other/"><span class="navlink">其他</span></a></li>
+</ul>
+  </div>
+</div>
+
+
+<div id="page" class="content container">
+<div class="post">
+  <h1>Linux环境配置</h1>
+  <span class="post-date">Sat, Oct 17, 2015</span>
+      
+
+<h2 id="目前开发系统的软件环境:34fe9f2d9cc3cd7e319ca75e7da08332">目前开发系统的软件环境</h2>
+
+<p>软件环境</p>
+
+<pre><code class="language-bash">sudo apt-get install bison flex libncurses5-dev libncursesw5-dev 
+sudo apt-get install zlib1g-dev
+sudo apt-get install nfs-kernel-server openssh-server 
+sudo apt-get install vim vim-gtk ctags
+sudo apt-get install meld dia minicom searchmonkey
+sudo apt-get install regexxer
+sudo apt-get install curl
+sudo apt-get install libxv-dev(for sdl1.2.15)
+qtcreator(binary)
+golang(binary)
+liteide(binary) 
+sdl 1.2.15(source,configure/make/make install)
+sdl_ttf 2.0.11(source,configure/make/make install)
+freetype 2.6(source,configure/make/make install)
+libdvbpsi 2.0.0(source,configure/make/make install)
+cunit 2.1.3(source,aclocal/autoconf/autoheader/automake/configure/make/make install)
+</code></pre>
+
+<p>编译SDL时遇到如下的问题:</p>
+
+<pre><code>libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
+In file included from ./src/video/x11/SDL_x11video.h:50:0,
+                 from ./src/video/x11/SDL_x11dga_c.h:24,
+                 from ./src/video/x11/SDL_x11dga.c:30:
+./src/video/x11/SDL_x11dyn.h:45:33: fatal error: X11/extensions/XShm.h: No such file or directory
+ #include &lt;X11/extensions/XShm.h&gt;
+                                 ^
+compilation terminated.
+make: *** [build/SDL_x11dga.lo] Error 1
+</code></pre>
+
+<p>通过如下的方法安装一个开发包,然后再次编译就正常了.</p>
+
+<pre><code class="language-bash">/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following extra packages will be installed:
+  libxext-dev x11proto-video-dev x11proto-xext-dev
+Suggested packages:
+  libxext-doc
+The following NEW packages will be installed:
+  libxext-dev libxv-dev x11proto-video-dev x11proto-xext-dev
+0 upgraded, 4 newly installed, 0 to remove and 146 not upgraded.
+Need to get 342 kB of archives.
+After this operation, 1,414 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty/main x11proto-xext-dev all 7.3.0-1 [212 kB]
+Get:2 http://archive.ubuntu.com/ubuntu/ trusty-updates/main libxext-dev i386 2:1.3.2-1ubuntu0.0.14.04.1 [79.8 kB]
+Get:3 http://archive.ubuntu.com/ubuntu/ trusty/main x11proto-video-dev all 2.3.2-1 [17.5 kB]
+Get:4 http://archive.ubuntu.com/ubuntu/ trusty/main libxv-dev i386 2:1.0.10-1 [32.1 kB]
+Fetched 342 kB in 6s (54.8 kB/s)                                               
+Selecting previously unselected package x11proto-xext-dev.
+(Reading database ... 181064 files and directories currently installed.)
+Preparing to unpack .../x11proto-xext-dev_7.3.0-1_all.deb ...
+Unpacking x11proto-xext-dev (7.3.0-1) ...
+Selecting previously unselected package libxext-dev:i386.
+Preparing to unpack .../libxext-dev_2%3a1.3.2-1ubuntu0.0.14.04.1_i386.deb ...
+Unpacking libxext-dev:i386 (2:1.3.2-1ubuntu0.0.14.04.1) ...
+Selecting previously unselected package x11proto-video-dev.
+Preparing to unpack .../x11proto-video-dev_2.3.2-1_all.deb ...
+Unpacking x11proto-video-dev (2.3.2-1) ...
+Selecting previously unselected package libxv-dev:i386.
+Preparing to unpack .../libxv-dev_2%3a1.0.10-1_i386.deb ...
+Unpacking libxv-dev:i386 (2:1.0.10-1) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up x11proto-xext-dev (7.3.0-1) ...
+Setting up libxext-dev:i386 (2:1.3.2-1ubuntu0.0.14.04.1) ...
+Setting up x11proto-video-dev (2.3.2-1) ...
+Setting up libxv-dev:i386 (2:1.0.10-1) ...
+/sdl/SDL-1.2.15 $
+</code></pre>
+
+<p>在安装cunit时遇到</p>
+
+<pre><code class="language-bash">configure.in:211: error: required file 'config.h.in' not found
+</code></pre>
+
+<p>解决方法是在执行<code>automake --add-missing</code>之前执行autoheader,生成config.h.in</p>
+
+<pre><code class="language-bash">sed: can't read ./ltmain.sh: No such file or directory
+sed: can't read libtoolT: No such file or directory
+</code></pre>
+
+<p>解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
+默认执行make install后,没有安装到系统的/usr/local目录下,是安装到
+/home/user/CUnitHome下了.可以将include/lib/pkgconfig/目录下的文件分别拷贝到相
+应的目录下.</p>
+
+<p>一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:</p>
+
+<pre><code class="language-bash">./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
+</code></pre>
+
+<p>解决方法:<code>sudo ldconfig</code>
+Run ldconfig as root to update the cache - if that still doesn&rsquo;t help, you need to add the path to the file ld.so.conf (just type it in on its own line) or better yet, add the entry to a new file (easier to delete) in directory ld.so.conf.d.</p>
+
+<p>如果出现如下的错误,干脆直接用<code>./configure --prefix=/usr/local</code> 然后直接<code>make install</code>搞定.</p>
+
+<pre><code class="language-bash">$ sudo ldconfig
+/sbin/ldconfig.real: /usr/local/lib/libcunit.so.1 is not a symbolic link
+</code></pre>
+
+<p>交叉编译cunit</p>
+
+<pre><code class="language-bash">./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
+</code></pre>
+
+<p>字体环境</p>
+
+<pre><code class="language-bash">monaco-font 
+</code></pre>
+
+<h2 id="修改磁盘的卷标名称:34fe9f2d9cc3cd7e319ca75e7da08332">修改磁盘的卷标名称</h2>
+
+<h2 id="ext2-ext3-ext4:34fe9f2d9cc3cd7e319ca75e7da08332">ext2/ext3/ext4</h2>
+
+<pre><code class="language-bash">NAME
+	   e2label - Change the label on an ext2/ext3/ext4 filesystem
+
+SYNOPSIS
+	   e2label device [ new-label ]
+
+DESCRIPTION
+	   e2label will display or change the filesystem label on the ext2, ext3, or ext4 filesystem located on device.
+
+	   If the optional argument new-label is not present, e2label will simply display the current filesystem label.
+
+	   If  the  optional  argument new-label is present, then e2label will set the filesystem label to be new-label.  Ext2 filesystem labels can be at most 16 characters long; if new-label is longer than 16 characters, e2label will
+	   truncate it and print a warning message.
+
+	   It is also possible to set the filesystem label using the -L option of tune2fs(8).
+
+AUTHOR
+	   e2label was written by Theodore Ts'o (tytso@mit.edu).
+
+AVAILABILITY
+	   e2label is part of the e2fsprogs package and is available from http://e2fsprogs.sourceforge.net.
+
+</code></pre>
+
+<p>例子</p>
+
+<pre><code class="language-bash">$ e2label /dev/sdb label_name
+</code></pre>
+
+<h2 id="linuxmint17-2-中任务栏上应用程序窗口图标丢失问题:34fe9f2d9cc3cd7e319ca75e7da08332">LinuxMint17.2 中任务栏上应用程序窗口图标丢失问题</h2>
+
+<p>这里所说的窗口图标即不是左边的快捷启动方式,也不是右边的系统托盘图标,而是正中间的那个点击后可以切换应用程序的窗口的图标,就是最小化到任务栏的图标还带有应用程序的标题.总之我莫名其妙的发现我每打开一个程序都不在任务栏之上,查看后台进程,却有我刚才打开的程序,后来经同事指点,原来是任务栏上有可以拖动的手柄,拖动后,拖到最大的位置,所有打开的程序都可以看见了,在Windows下任务栏是可以锁定的,但是在LinuxMint中找不到锁定的选项配置.</p>
+
+<h2 id="linuxmint17-2-sudo不用输入密码的配置:34fe9f2d9cc3cd7e319ca75e7da08332">LinuxMint17.2 sudo不用输入密码的配置</h2>
+
+<p>把 <code>/etc/sudoers</code> 由</p>
+
+<pre><code class="language-bash">#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path=&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on &quot;#include&quot; directives:
+
+#includedir /etc/sudoers.d
+</code></pre>
+
+<p>更改为</p>
+
+<pre><code class="language-bash">#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path=&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) NOPASSWD:ALL
+
+# See sudoers(5) for more information on &quot;#include&quot; directives:
+
+#includedir /etc/sudoers.d
+</code></pre>
+
+</div>
+
+
+<div>
+    <ul id="tags">
+      
+    </ul>
+</div>
+
+<div>
+    <section id="prev">
+        &nbsp;
+    </section><section id="next">
+        &nbsp;<a class="next" href="http://localhost:1313/post/virtualbox/">下一篇：VirtualBox使用记录</a>
+    </section>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+
+</div>
+
+
+<script type="text/javascript">
+$('pre > code').parent().addClass("prettyprint");
+prettyPrint();
+</script>
+
+  </body>
+</html>
+

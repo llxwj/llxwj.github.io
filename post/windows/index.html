@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> windows操作系统技巧合集 &middot; llxwj </title>
+
+  
+  <link rel="stylesheet" href="http://localhost:1313//css/poole.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/hyde.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/g.css">
+  <link rel="stylesheet" href="http://localhost:1313//css/tomorrow-night-eighties.css">
+
+  
+  <script src="http://localhost:1313//js/jquery-1.9.1.min.js"></script>
+  <script src="http://localhost:1313//js/pretty.print.js"></script>
+
+  
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="llxwj" />
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1><a href="/" style="text-decoration:none;">llxwj</a></h1>
+    </div>
+
+<ul class="catlist">
+  <li><a href="/post/"><span class="navlink">博客</span></a></li>
+  <li><a href="/other/"><span class="navlink">其他</span></a></li>
+</ul>
+  </div>
+</div>
+
+
+<div id="page" class="content container">
+<div class="post">
+  <h1>windows操作系统技巧合集</h1>
+  <span class="post-date">Sat, Oct 17, 2015</span>
+      
+
+<h1 id="windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0">Windows7安全模式下可以用MSI卸载软件</h1>
+
+<p>把下面这个语句写入到一个批处理中,在安全模式下用管理员权限导入到注册表中,就可以在安全模式下卸载软件了.</p>
+
+<pre><code class="language-bash">reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Minimal\MSIServer /VE /T REG_SZ /F /D &quot;Service&quot; 
+</code></pre>
+
+</div>
+
+
+<div>
+    <ul id="tags">
+      
+    </ul>
+</div>
+
+<div>
+    <section id="prev">
+        &nbsp;<a class="previous" href="http://localhost:1313/post/virtualbox/">上一篇：VirtualBox使用记录</a><br>
+    </section><section id="next">
+        &nbsp;
+    </section>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+
+</div>
+
+
+<script type="text/javascript">
+$('pre > code').parent().addClass("prettyprint");
+prettyPrint();
+</script>
+
+  </body>
+</html>
+
