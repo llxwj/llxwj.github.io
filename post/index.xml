@@ -5,7 +5,7 @@
     <link>http://localhost:1313/post/</link>
     <description>Recent content in Posts on llxwj</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-cn</language>
     <lastBuildDate>Sat, 17 Oct 2015 07:17:05 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -662,7 +662,7 @@ share /home/lili/share vboxsf  rw,user,noauto,exec 0       1&lt;/p&gt;
 &lt;li&gt;添加后可以按WINI+Space验证是否能切换输入法.&lt;/li&gt;
 &lt;li&gt;在电脑的右下角处点击输入法。然后再点语言首选项。&lt;/li&gt;
 &lt;li&gt;更改语言首选项处，把英文语言上移到第一位就可以了。&lt;/li&gt;
-&lt;li&gt;英文的输入法到了第一位就是默认了。不过现在的第三方的输入法都有带英文输入的功能。一般是按（shift键）来切换。&lt;/li&gt;
+&lt;li&gt;英文的输入法移动到第一位后就是默认输入法法了,当前的许多第三方输入不过也支持英文输入,不过不太方便使用,需要按SHIFT键进行切换。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;在Win10下，按WIN + Space可以调出输入法切换菜单，在所有安装的输入法间切换。

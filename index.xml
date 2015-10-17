@@ -5,7 +5,7 @@
     <link>http://localhost:1313/</link>
     <description>Recent content on llxwj</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-cn</language>
     <lastBuildDate>Sat, 17 Oct 2015 07:17:05 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
@@ -649,6 +649,25 @@ share /home/lili/share vboxsf  rw,user,noauto,exec 0       1&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Minimal\MSIServer /VE /T REG_SZ /F /D &amp;quot;Service&amp;quot; 
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;windows10-设置默认输入法:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;Windows10 设置默认输入法&lt;/h1&gt;
+
+&lt;p&gt;我是从Win7中文版本升级到Win10的，默认只有中文输入法，每次打开浏览器，代码编辑
+器输入代码的时候总是默认输入中文，感觉这个体验非常不好，想配置成默认输入英文的
+，当我想输入中文的时候再手动切换到中文输入法。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;进入WIN10系统在桌面右角处点语言图标，在弹出来的菜单中选择语言首选项。&lt;/li&gt;
+&lt;li&gt;点击&amp;rdquo;添加语言&amp;rdquo;按钮进入添加语言界面找到英语后打开,然后选择美语英语。&lt;/li&gt;
+&lt;li&gt;添加后可以按WINI+Space验证是否能切换输入法.&lt;/li&gt;
+&lt;li&gt;在电脑的右下角处点击输入法。然后再点语言首选项。&lt;/li&gt;
+&lt;li&gt;更改语言首选项处，把英文语言上移到第一位就可以了。&lt;/li&gt;
+&lt;li&gt;英文的输入法移动到第一位后就是默认输入法法了,当前的许多第三方输入不过也支持英文输入,不过不太方便使用,需要按SHIFT键进行切换。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在Win10下，按WIN + Space可以调出输入法切换菜单，在所有安装的输入法间切换。
+切换为中文后，按Ctrl+Shift可以同类输入法间切换，在微软拼音输入法下，按
+Ctrl+Space 则可以在中文与英文输入间切换，其他输入法下则不行。&lt;/p&gt;
 </description>
     </item>
     
