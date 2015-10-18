@@ -3,7 +3,23 @@
   
   <url>
     <loc>http://llxwj.github.io/</loc>
+    <lastmod>2015-10-17T07:17:05+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://llxwj.github.io/post/linux/</loc>
+    <lastmod>2015-10-17T07:17:05+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://llxwj.github.io/post/virtualbox/</loc>
+    <lastmod>2015-10-17T07:12:07+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://llxwj.github.io/post/windows/</loc>
+    <lastmod>2015-10-17T07:07:14+08:00</lastmod>
   </url>
   
 </urlset>
