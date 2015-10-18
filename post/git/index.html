@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title> windows操作系统技巧合集 &middot; llxwj </title>
+  <title> Git技巧记录 &middot; llxwj </title>
 
   
   <link rel="stylesheet" href="http://llxwj.github.io//css/poole.css">
@@ -44,35 +44,30 @@
 
 <div id="page" class="content container">
 <div class="post">
-  <h1>windows操作系统技巧合集</h1>
-  <span class="post-date">Sat, Oct 17, 2015</span>
+  <h1>Git技巧记录</h1>
+  <span class="post-date">Sun, Oct 18, 2015</span>
       
 
-<h1 id="windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0">Windows7安全模式下可以用MSI卸载软件</h1>
+<h1 id="让git忽略ssl证书异常技巧:1c1ef82aae62aeea8eedcb5f455b129b">让Git忽略SSL证书异常技巧</h1>
 
-<p>把下面这个语句写入到一个批处理中,在安全模式下用管理员权限导入到注册表中,就可以在安全模式下卸载软件了.</p>
+<p><a href="http://www.myexception.cn/operating-system/1594593.html">复制源</a></p>
 
-<pre><code class="language-bash">reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Minimal\MSIServer /VE /T REG_SZ /F /D &quot;Service&quot; 
+<p>当你通过HTTPS访问Git远程仓库，如果服务器的SSL证书未经过第三方机构签署，那么Git就会报错。这是十分合理的设计，毕竟未知的没有签署过的证书意味着很大安全风险。但是，如果你正好在架设Git服务器，而正式的SSL证书没有签发下来，你为了赶时间生成了自签署的临时证书，怎样才是最便捷的测试手段。</p>
+
+<p>本文记录一种比较好的做法：</p>
+
+<p>第一步，克隆远程仓库时，用env命令设置GIT_SSL_NO_VERIFY环境变量为&rdquo;ture&rdquo;，并同时调用正常的git clone命令。完整的命令如下：</p>
+
+<pre><code class="language-bash">env GIT_SSL_NO_VERIFY=true git clone https://&lt;host_name/git/project.git
 </code></pre>
 
-<h1 id="windows10-设置默认输入法:3e44722f300b9d926b8a94aa7aeb0fd0">Windows10 设置默认输入法</h1>
+<p>第二步，在克隆完毕的仓库中将http.sslVerify设置为&rdquo;false&rdquo;。完整的命令如下：</p>
 
-<p>我是从Win7中文版本升级到Win10的，默认只有中文输入法，每次打开浏览器，代码编辑
-器输入代码的时候总是默认输入中文，感觉这个体验非常不好，想配置成默认输入英文的
-，当我想输入中文的时候再手动切换到中文输入法。</p>
+<pre><code class="language-bash">git config http.sslVerify &quot;false&quot;
+</code></pre>
 
-<ul>
-<li>进入WIN10系统在桌面右角处点语言图标，在弹出来的菜单中选择语言首选项。</li>
-<li>点击&rdquo;添加语言&rdquo;按钮进入添加语言界面找到英语后打开,然后选择美语英语。</li>
-<li>添加后可以按WINI+Space验证是否能切换输入法.</li>
-<li>在电脑的右下角处点击输入法。然后再点语言首选项。</li>
-<li>更改语言首选项处，把英文语言上移到第一位就可以了。</li>
-<li>英文的输入法移动到第一位后就是默认输入法法了,当前的许多第三方输入不过也支持英文输入,不过不太方便使用,需要按SHIFT键进行切换。</li>
-</ul>
-
-<p>在Win10下，按WIN + Space可以调出输入法切换菜单，在所有安装的输入法间切换。
-切换为中文后，按Ctrl+Shift可以同类输入法间切换，在微软拼音输入法下，按
-Ctrl+Space 则可以在中文与英文输入间切换，其他输入法下则不行。</p>
+<p>点评：
+以上方法应该是Git处理可信任的SSL临时证书很好的方法，第一步使用env命令保证了忽略证书错误是单次行为，不会成为默认的设置。第二次，则把忽略证书错误的设置限定在特定的仓库，避免扩大该设置的适用范围而引起的潜在安全风险。</p>
 
 </div>
 
@@ -80,14 +75,18 @@ Ctrl+Space 则可以在中文与英文输入间切换，其他输入法下则不
 <div>
     <ul id="tags">
       
+        <li> <a href="http://llxwj.github.io//tags/development">Development</a> </li>
+      
+        <li> <a href="http://llxwj.github.io//tags/git">Git</a> </li>
+      
     </ul>
 </div>
 
 <div>
     <section id="prev">
-        &nbsp;<a class="previous" href="http://llxwj.github.io/post/virtualbox/">上一篇：VirtualBox使用记录</a><br>
-    </section><section id="next">
         &nbsp;
+    </section><section id="next">
+        &nbsp;<a class="next" href="http://llxwj.github.io/post/linux/">下一篇：Linux环境配置</a>
     </section>
 </div>
 
