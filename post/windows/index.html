@@ -48,14 +48,14 @@
   <span class="post-date">Sat, Oct 17, 2015</span>
       
 
-<h1 id="windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0">Windows7安全模式下可以用MSI卸载软件</h1>
+<h2 id="windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0">Windows7安全模式下可以用MSI卸载软件</h2>
 
 <p>把下面这个语句写入到一个批处理中,在安全模式下用管理员权限导入到注册表中,就可以在安全模式下卸载软件了.</p>
 
 <pre><code class="language-bash">reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Minimal\MSIServer /VE /T REG_SZ /F /D &quot;Service&quot; 
 </code></pre>
 
-<h1 id="windows10-设置默认输入法:3e44722f300b9d926b8a94aa7aeb0fd0">Windows10 设置默认输入法</h1>
+<h2 id="windows10-设置默认输入法:3e44722f300b9d926b8a94aa7aeb0fd0">Windows10 设置默认输入法</h2>
 
 <p>我是从Win7中文版本升级到Win10的，默认只有中文输入法，每次打开浏览器，代码编辑
 器输入代码的时候总是默认输入中文，感觉这个体验非常不好，想配置成默认输入英文的
@@ -73,6 +73,57 @@
 <p>在Win10下，按WIN + Space可以调出输入法切换菜单，在所有安装的输入法间切换。
 切换为中文后，按Ctrl+Shift可以同类输入法间切换，在微软拼音输入法下，按
 Ctrl+Space 则可以在中文与英文输入间切换，其他输入法下则不行。</p>
+
+<h1 id="添加右键使用windows-defender扫描文件或文件夹:3e44722f300b9d926b8a94aa7aeb0fd0">添加右键使用Windows Defender扫描文件或文件夹</h1>
+
+<p>添加</p>
+
+<pre><code class="language-bash">Windows Registry Editor Version 5.00
+
+; Created by: winaero
+; http://winaero.com
+
+; Folder Scan
+
+[HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender]
+&quot;Icon&quot;=&quot;%ProgramFiles%\\\\Windows Defender\\\\EppManifest.dll&quot;
+&quot;MUIVerb&quot;=&quot;使用Windows Defender扫描&quot;
+
+[HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender\Command]
+@=&quot;cmd.exe /s /c \&quot;\&quot;C:\\Program Files\\Windows Defender\\MpCmdRun.exe\&quot; -scan -scantype 3 -SignatureUpdate -file \&quot;%1 \&quot;\&quot; &amp; pause&quot;
+
+; File Scan
+
+[HKEY_CLASSES_ROOT\*\shell\WindowsDefender]
+&quot;Icon&quot;=&quot;%ProgramFiles%\\\\Windows Defender\\\\EppManifest.dll&quot;
+&quot;MUIVerb&quot;=&quot;使用Windows Defender扫描&quot;
+
+[HKEY_CLASSES_ROOT\*\shell\WindowsDefender\Command]
+@=&quot;cmd.exe /s /c \&quot;\&quot;C:\\Program Files\\Windows Defender\\MpCmdRun.exe\&quot; -scan -scantype 3 -SignatureUpdate -file \&quot;%1 \&quot;\&quot; &amp; pause&quot;
+</code></pre>
+
+<p>移除</p>
+
+<pre><code class="language-bash">Windows Registry Editor Version 5.00
+
+; Created by: winaero
+; http://winaero.com
+
+; Folder Scan
+
+[-HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender]
+
+
+; File Scan
+
+[-HKEY_CLASSES_ROOT\*\shell\WindowsDefender]
+</code></pre>
+
+<h2 id="securecrt-抓log的前置字符串配置:3e44722f300b9d926b8a94aa7aeb0fd0">SecureCRT 抓Log的前置字符串配置</h2>
+
+<pre><code class="language-bash">%M-%D %h:%m:%s:%t
+
+</code></pre>
 
 </div>
 

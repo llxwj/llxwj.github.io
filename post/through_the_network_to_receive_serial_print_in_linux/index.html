@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> 在Linux下通过网络接收串口打印 &middot; llxwj </title>
+
+  
+  <link rel="stylesheet" href="http://llxwj.github.io//css/poole.css">
+  <link rel="stylesheet" href="http://llxwj.github.io//css/hyde.css">
+  <link rel="stylesheet" href="http://llxwj.github.io//css/g.css">
+  <link rel="stylesheet" href="http://llxwj.github.io//css/tomorrow-night-eighties.css">
+
+  
+  <script src="http://llxwj.github.io//js/jquery-1.9.1.min.js"></script>
+  <script src="http://llxwj.github.io//js/pretty.print.js"></script>
+
+  
+  <link rel="shortcut icon" href="http://llxwj.github.io/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="llxwj" />
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1><a href="http://llxwj.github.io/" style="text-decoration:none;">llxwj</a></h1>
+    </div>
+
+<ul class="catlist">
+  <li><a href="http://llxwj.github.io/post/"><span class="navlink"> 博客 </span></a></li>
+  <li><a href="http://llxwj.github.io/project/"><span class="navlink"> 项目 </span></a></li>
+  <li><a href="http://llxwj.github.io/translation/"><span class="navlink"> 翻译 </span></a></li>
+</ul>
+  </div>
+</div>
+
+
+<div id="page" class="content container">
+<div class="post">
+  <h1>在Linux下通过网络接收串口打印</h1>
+  <span class="post-date">Tue, Oct 27, 2015</span>
+      <p>嵌入式开发中我们经常需要对平台的串口打印数据进行采集，便于分析程序的运行行为，
+确定软件的运行流程，对软件的问题进行故障定位等。串口数据的输出目前主流的波特率
+配置是115200，如果打印太多的数据，会拖慢程序的运行，导致为了采集数据，而要等待
+很长的时间。</p>
+
+<p>这里有一种办法可以通过网络采集串口打印，这样能节省非常多的等待时间，但是嵌入式
+软件平台必须是Linux的。这里用到的Linux工具是nc命令。先在工作主机上用nc命令建立
+一个端口监听：</p>
+
+<pre><code class="language-bash">nc -l 12345
+</code></pre>
+
+<p>在嵌入式平台上，启动软件之前，用重定向的方法将stdout的数据重定向到工作主机上的
+监听端口：</p>
+
+<pre><code class="language-bash">./program | nc &lt;工作主机的IP地址&gt; 12345
+</code></pre>
+
+<p>程序的打印可以输出到stdout与stderr，为了能捕获stderr的打印，需要在程序运行时将
+stderr也重定向到stdout：</p>
+
+<pre><code class="language-bash">./program 2 &gt; 1 | nc &lt;工作主机的IP地址&gt; 12345
+
+</code></pre>
+
+<p>这样当嵌入式软件启动后，在工作主机启动nc监听命令的终端窗口中会看到本是输出到串
+口的打印，当数据非常多的时候，为了便于处理，应该将终端中捕获到的串口数据输出到
+文件中，这时需要Linux的tee命令，只是在监听的时候，需要这样做：</p>
+
+<pre><code class="language-bash">nc -l 12345 | tee serial.log
+</code></pre>
+
+<p>现在感觉Linux的管道真的是太方便，非常强大，可以随意组合，能完成很多意想不到的
+功能。</p>
+
+</div>
+
+
+<div>
+    <ul id="tags">
+      
+        <li> <a href="http://llxwj.github.io//tags/linux">linux</a> </li>
+      
+    </ul>
+</div>
+
+<div>
+    <section id="prev">
+        &nbsp;
+    </section><section id="next">
+        &nbsp;<a class="next" href="http://llxwj.github.io/post/git/">下一篇：Git技巧记录</a>
+    </section>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+
+</div>
+
+
+<script type="text/javascript">
+$('pre > code').parent().addClass("prettyprint");
+prettyPrint();
+</script>
+
+  </body>
+</html>
+
