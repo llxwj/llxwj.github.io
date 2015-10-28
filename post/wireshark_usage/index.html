@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title> 在Linux下通过网络接收串口打印 &middot; llxwj </title>
+  <title> Wireshark使用方法 &middot; llxwj </title>
 
   
   <link rel="stylesheet" href="http://localhost:1313//css/poole.css">
@@ -44,42 +44,30 @@
 
 <div id="page" class="content container">
 <div class="post">
-  <h1>在Linux下通过网络接收串口打印</h1>
-  <span class="post-date">Tue, Oct 27, 2015</span>
-      <p>嵌入式开发中我们经常需要对平台的串口打印数据进行采集，便于分析程序的运行行为，
-确定软件的运行流程，对软件的问题进行故障定位等。串口数据的输出目前主流的波特率
-配置是115200，如果打印太多的数据，会拖慢程序的运行，导致为了采集数据，而要等待
-很长的时间。</p>
+  <h1>Wireshark使用方法</h1>
+  <span class="post-date">Wed, Oct 28, 2015</span>
+      
 
-<p>这里有一种办法可以通过网络采集串口打印，这样能节省非常多的等待时间，但是嵌入式
-软件平台必须是Linux的。这里用到的Linux工具是nc命令。先在工作主机上用nc命令建立
-一个端口监听：</p>
+<h2 id="一站式学习wireshark:ac986bb9732f6c9f1ccb7273506fe224">一站式学习Wireshark</h2>
 
-<pre><code class="language-bash">nc -l 12345
-</code></pre>
+<p><a href="https://community.emc.com/message/818739#818739">原始链接 EMC中文支持论坛</a>打开速度有点慢，是
+HTTPS的，但是比较全。下面是伯乐博客的转载，打开速度比较快：</p>
 
-<p>在嵌入式平台上，启动软件之前，用重定向的方法将stdout的数据重定向到工作主机上的
-监听端口：</p>
+<p><a href="http://blog.jobbole.com/70907/">一:Wireshark基本用法</a></p>
 
-<pre><code class="language-bash">./program | nc &lt;工作主机的IP地址&gt; 12345
-</code></pre>
+<p><a href="http://blog.jobbole.com/70919/">二:应用Wireshark观察基本网络协议</a></p>
 
-<p>程序的打印可以输出到stdout与stderr，为了能捕获stderr的打印，需要在程序运行时将
-stderr也重定向到stdout：</p>
+<p><a href="http://blog.jobbole.com/70929/">三:应用Wireshark IO图形工具分析数据流</a></p>
 
-<pre><code class="language-bash">./program 2 &gt; 1 | nc &lt;工作主机的IP地址&gt; 12345
+<p><a href="http://blog.jobbole.com/71427/">四:网络性能排查之TCP重传与重复ACK</a></p>
 
-</code></pre>
+<p><a href="TCP窗口与拥塞处理">五:TCP窗口与拥塞处理</a></p>
 
-<p>这样当嵌入式软件启动后，在工作主机启动nc监听命令的终端窗口中会看到本是输出到串
-口的打印，当数据非常多的时候，为了便于处理，应该将终端中捕获到的串口数据输出到
-文件中，这时需要Linux的tee命令，只是在监听的时候，需要这样做：</p>
+<p><a href="http://blog.jobbole.com/73477/">六:狙击网络高延时点</a></p>
 
-<pre><code class="language-bash">nc -l 12345 | tee serial.log
-</code></pre>
+<p><a href="http://blog.jobbole.com/73482/">七:Statistics统计工具功能详解与应用</a></p>
 
-<p>现在感觉Linux的管道真的是太方便，非常强大，可以随意组合，能完成很多意想不到的
-功能。</p>
+<p><a href="http://blog.jobbole.com/74018/">八:应用Wireshark过滤条件抓取特定数据流</a></p>
 
 </div>
 
@@ -87,16 +75,18 @@ stderr也重定向到stdout：</p>
 <div>
     <ul id="tags">
       
-        <li> <a href="http://localhost:1313//tags/linux">linux</a> </li>
+        <li> <a href="http://localhost:1313//tags/wireshark">wireshark</a> </li>
+      
+        <li> <a href="http://localhost:1313//tags/network">network</a> </li>
       
     </ul>
 </div>
 
 <div>
     <section id="prev">
-        &nbsp;<a class="previous" href="http://localhost:1313/post/wireshark_usage/">上一篇：Wireshark使用方法</a><br>
+        &nbsp;
     </section><section id="next">
-        &nbsp;<a class="next" href="http://localhost:1313/post/git/">下一篇：Git技巧记录</a>
+        &nbsp;<a class="next" href="http://localhost:1313/post/through_the_network_to_receive_serial_print_in_linux/">下一篇：在Linux下通过网络接收串口打印</a>
     </section>
 </div>
 
