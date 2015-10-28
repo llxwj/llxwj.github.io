@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Development on llxwj</title>
-    <link>http://localhost:1313/tags/development/</link>
+    <link>http://llxwj.github.io/tags/development/</link>
     <description>Recent content in Development on llxwj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sun, 18 Oct 2015 16:16:35 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://llxwj.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Git技巧记录</title>
-      <link>http://localhost:1313/post/git/</link>
+      <link>http://llxwj.github.io/post/git/</link>
       <pubDate>Sun, 18 Oct 2015 16:16:35 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/git/</guid>
+      <guid>http://llxwj.github.io/post/git/</guid>
       <description>
 
 &lt;h1 id=&#34;让git忽略ssl证书异常技巧:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;让Git忽略SSL证书异常技巧&lt;/h1&gt;

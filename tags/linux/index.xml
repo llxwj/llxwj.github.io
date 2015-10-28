@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on llxwj</title>
-    <link>http://localhost:1313/tags/linux/</link>
+    <link>http://llxwj.github.io/tags/linux/</link>
     <description>Recent content in Linux on llxwj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 27 Oct 2015 14:04:17 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://llxwj.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>在Linux下通过网络接收串口打印</title>
-      <link>http://localhost:1313/post/through_the_network_to_receive_serial_print_in_linux/</link>
+      <link>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</link>
       <pubDate>Tue, 27 Oct 2015 14:04:17 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/through_the_network_to_receive_serial_print_in_linux/</guid>
+      <guid>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</guid>
       <description>&lt;p&gt;嵌入式开发中我们经常需要对平台的串口打印数据进行采集，便于分析程序的运行行为，
 确定软件的运行流程，对软件的问题进行故障定位等。串口数据的输出目前主流的波特率
 配置是115200，如果打印太多的数据，会拖慢程序的运行，导致为了采集数据，而要等待

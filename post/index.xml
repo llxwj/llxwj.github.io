@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on llxwj</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://llxwj.github.io/post/</link>
     <description>Recent content in Posts on llxwj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 28 Oct 2015 09:03:11 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://llxwj.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Wireshark使用方法</title>
-      <link>http://localhost:1313/post/wireshark_usage/</link>
+      <link>http://llxwj.github.io/post/wireshark_usage/</link>
       <pubDate>Wed, 28 Oct 2015 09:03:11 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/wireshark_usage/</guid>
+      <guid>http://llxwj.github.io/post/wireshark_usage/</guid>
       <description>
 
 &lt;h2 id=&#34;一站式学习wireshark:ac986bb9732f6c9f1ccb7273506fe224&#34;&gt;一站式学习Wireshark&lt;/h2&gt;
@@ -42,10 +42,10 @@ HTTPS的，但是比较全。下面是伯乐博客的转载，打开速度比较
     
     <item>
       <title>在Linux下通过网络接收串口打印</title>
-      <link>http://localhost:1313/post/through_the_network_to_receive_serial_print_in_linux/</link>
+      <link>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</link>
       <pubDate>Tue, 27 Oct 2015 14:04:17 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/through_the_network_to_receive_serial_print_in_linux/</guid>
+      <guid>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</guid>
       <description>&lt;p&gt;嵌入式开发中我们经常需要对平台的串口打印数据进行采集，便于分析程序的运行行为，
 确定软件的运行流程，对软件的问题进行故障定位等。串口数据的输出目前主流的波特率
 配置是115200，如果打印太多的数据，会拖慢程序的运行，导致为了采集数据，而要等待
@@ -85,10 +85,10 @@ stderr也重定向到stdout：&lt;/p&gt;
     
     <item>
       <title>Git技巧记录</title>
-      <link>http://localhost:1313/post/git/</link>
+      <link>http://llxwj.github.io/post/git/</link>
       <pubDate>Sun, 18 Oct 2015 16:16:35 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/git/</guid>
+      <guid>http://llxwj.github.io/post/git/</guid>
       <description>
 
 &lt;h1 id=&#34;让git忽略ssl证书异常技巧:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;让Git忽略SSL证书异常技巧&lt;/h1&gt;
@@ -116,10 +116,10 @@ git config http.sslVerify &amp;quot;false&amp;quot;
     
     <item>
       <title>Linux环境配置</title>
-      <link>http://localhost:1313/post/linux/</link>
+      <link>http://llxwj.github.io/post/linux/</link>
       <pubDate>Sat, 17 Oct 2015 07:17:05 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/linux/</guid>
+      <guid>http://llxwj.github.io/post/linux/</guid>
       <description>
 
 &lt;h2 id=&#34;目前开发系统的软件环境:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;目前开发系统的软件环境&lt;/h2&gt;
@@ -358,10 +358,10 @@ Defaults    secure_path=&amp;ldquo;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr
     
     <item>
       <title>VirtualBox使用记录</title>
-      <link>http://localhost:1313/post/virtualbox/</link>
+      <link>http://llxwj.github.io/post/virtualbox/</link>
       <pubDate>Sat, 17 Oct 2015 07:12:07 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/virtualbox/</guid>
+      <guid>http://llxwj.github.io/post/virtualbox/</guid>
       <description>
 
 &lt;p&gt;#VirtualBox 5.0.0-101573试用&lt;/p&gt;
@@ -750,10 +750,10 @@ share /home/lili/share vboxsf  rw,user,noauto,exec 0       1&lt;/p&gt;
     
     <item>
       <title>windows操作系统技巧合集</title>
-      <link>http://localhost:1313/post/windows/</link>
+      <link>http://llxwj.github.io/post/windows/</link>
       <pubDate>Sat, 17 Oct 2015 07:07:14 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/windows/</guid>
+      <guid>http://llxwj.github.io/post/windows/</guid>
       <description>
 
 &lt;h2 id=&#34;windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;Windows7安全模式下可以用MSI卸载软件&lt;/h2&gt;

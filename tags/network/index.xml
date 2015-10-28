@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on llxwj</title>
-    <link>http://localhost:1313/tags/network/</link>
+    <link>http://llxwj.github.io/tags/network/</link>
     <description>Recent content in Network on llxwj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 28 Oct 2015 09:03:11 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://llxwj.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Wireshark使用方法</title>
-      <link>http://localhost:1313/post/wireshark_usage/</link>
+      <link>http://llxwj.github.io/post/wireshark_usage/</link>
       <pubDate>Wed, 28 Oct 2015 09:03:11 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/wireshark_usage/</guid>
+      <guid>http://llxwj.github.io/post/wireshark_usage/</guid>
       <description>
 
 &lt;h2 id=&#34;一站式学习wireshark:ac986bb9732f6c9f1ccb7273506fe224&#34;&gt;一站式学习Wireshark&lt;/h2&gt;
