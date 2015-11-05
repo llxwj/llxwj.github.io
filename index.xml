@@ -6,8 +6,88 @@
     <description>Recent content on llxwj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 18 Oct 2015 16:16:35 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2015 09:03:11 +0800</lastBuildDate>
     <atom:link href="http://llxwj.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Wireshark使用方法</title>
+      <link>http://llxwj.github.io/post/wireshark_usage/</link>
+      <pubDate>Wed, 28 Oct 2015 09:03:11 +0800</pubDate>
+      
+      <guid>http://llxwj.github.io/post/wireshark_usage/</guid>
+      <description>
+
+&lt;h2 id=&#34;一站式学习wireshark:ac986bb9732f6c9f1ccb7273506fe224&#34;&gt;一站式学习Wireshark&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://community.emc.com/message/818739#818739&#34;&gt;原始链接 EMC中文支持论坛&lt;/a&gt;打开速度有点慢，是
+HTTPS的，但是比较全。下面是伯乐博客的转载，打开速度比较快：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/70907/&#34;&gt;一:Wireshark基本用法&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/70919/&#34;&gt;二:应用Wireshark观察基本网络协议&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/70929/&#34;&gt;三:应用Wireshark IO图形工具分析数据流&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/71427/&#34;&gt;四:网络性能排查之TCP重传与重复ACK&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;TCP窗口与拥塞处理&#34;&gt;五:TCP窗口与拥塞处理&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/73477/&#34;&gt;六:狙击网络高延时点&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/73482/&#34;&gt;七:Statistics统计工具功能详解与应用&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/74018/&#34;&gt;八:应用Wireshark过滤条件抓取特定数据流&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>在Linux下通过网络接收串口打印</title>
+      <link>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</link>
+      <pubDate>Tue, 27 Oct 2015 14:04:17 +0800</pubDate>
+      
+      <guid>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</guid>
+      <description>&lt;p&gt;嵌入式开发中我们经常需要对平台的串口打印数据进行采集，便于分析程序的运行行为，
+确定软件的运行流程，对软件的问题进行故障定位等。串口数据的输出目前主流的波特率
+配置是115200，如果打印太多的数据，会拖慢程序的运行，导致为了采集数据，而要等待
+很长的时间。&lt;/p&gt;
+
+&lt;p&gt;这里有一种办法可以通过网络采集串口打印，这样能节省非常多的等待时间，但是嵌入式
+软件平台必须是Linux的。这里用到的Linux工具是nc命令。先在工作主机上用nc命令建立
+一个端口监听：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nc -l &amp;lt;端口号&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;nc监听的时候默认是用eth0监听的，如果有多个网卡，可以用如下的命令进行监听：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nc -l &amp;lt;网卡的IP地址&amp;gt; &amp;lt;端口号&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在嵌入式平台上，启动软件之前，用重定向的方法将stdout的数据重定向到工作主机上的
+监听端口：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./program | nc &amp;lt;工作主机的IP地址&amp;gt; &amp;lt;端口号&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;程序的打印可以输出到stdout与stderr，为了能捕获stderr的打印，需要在程序运行时将
+stderr也重定向到stdout：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./program 2 &amp;gt; 1 | nc &amp;lt;工作主机的IP地址&amp;gt; &amp;lt;端口号&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样当嵌入式软件启动后，在工作主机启动nc监听命令的终端窗口中会看到本是输出到串
+口的打印，当数据非常多的时候，为了便于处理，应该将终端中捕获到的串口数据输出到
+文件中，这时需要Linux的tee命令，只是在监听的时候，需要这样做：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nc -l 12345 | tee serial.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在感觉Linux的管道真的是太方便，非常强大，可以随意组合，能完成很多意想不到的
+功能。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Git技巧记录</title>
@@ -17,7 +97,7 @@
       <guid>http://llxwj.github.io/post/git/</guid>
       <description>
 
-&lt;h1 id=&#34;让git忽略ssl证书异常技巧:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;让Git忽略SSL证书异常技巧&lt;/h1&gt;
+&lt;h2 id=&#34;让git忽略ssl证书异常技巧:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;让Git忽略SSL证书异常技巧&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://www.myexception.cn/operating-system/1594593.html&#34;&gt;复制源&lt;/a&gt;&lt;/p&gt;
 
@@ -25,18 +105,39 @@
 
 &lt;p&gt;本文记录一种比较好的做法：&lt;/p&gt;
 
-&lt;p&gt;第一步，克隆远程仓库时，用env命令设置GIT_SSL_NO_VERIFY环境变量为&amp;rdquo;ture&amp;rdquo;，并同时调用正常的git clone命令。完整的命令如下：&lt;/p&gt;
+&lt;p&gt;第一步，克隆远程仓库时，用env命令设置GIT_SSL_NO_VERIFY环境变量为&amp;rdquo;ture&amp;rdquo;，并同时调用正常的git clone命令。完整的命令如下：
+&lt;code&gt;bash
+env GIT_SSL_NO_VERIFY=true git clone https://&amp;lt;host_name/git/project.git
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;env GIT_SSL_NO_VERIFY=true git clone https://&amp;lt;host_name/git/project.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;第二步，在克隆完毕的仓库中将http.sslVerify设置为&amp;rdquo;false&amp;rdquo;。完整的命令如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git config http.sslVerify &amp;quot;false&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二步，在克隆完毕的仓库中将http.sslVerify设置为&amp;rdquo;false&amp;rdquo;。完整的命令如下：
+&lt;code&gt;bash
+git config http.sslVerify &amp;quot;false&amp;quot;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;点评：
 以上方法应该是Git处理可信任的SSL临时证书很好的方法，第一步使用env命令保证了忽略证书错误是单次行为，不会成为默认的设置。第二次，则把忽略证书错误的设置限定在特定的仓库，避免扩大该设置的适用范围而引起的潜在安全风险。&lt;/p&gt;
+
+&lt;h2 id=&#34;git关闭换行符自动转换:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;Git关闭换行符自动转换&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git config --global core.autocrlf false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git提交时检查是否混用了不同风格的换行符:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;Git提交时检查是否混用了不同风格的换行符&lt;/h2&gt;
+
+&lt;p&gt;core.safecrlf此配置选项的功能如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;false - 不做任何检查
+warn - 在提交时检查并警告
+true - 在提交时检查，如果发现混用则拒绝提交
+
+git config --global core.safecrlf true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;将某个文件恢复到指定的版本:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;将某个文件恢复到指定的版本&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git checkout &amp;lt;6位开头的sha1编码&amp;gt; &amp;lt;path/to/file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -60,6 +161,8 @@ sudo apt-get install meld dia minicom searchmonkey
 sudo apt-get install regexxer
 sudo apt-get install curl
 sudo apt-get install libxv-dev(for sdl1.2.15)
+sudo apt-get install git-cola
+sudo apt-get install wine
 qtcreator(binary)
 golang(binary)
 liteide(binary) 
@@ -70,9 +173,9 @@ libdvbpsi 2.0.0(source,configure/make/make install)
 cunit 2.1.3(source,aclocal/autoconf/autoheader/automake/configure/make/make install)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;编译SDL时遇到如下的问题:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
+&lt;p&gt;编译SDL时遇到如下的问题:
+&lt;code&gt;
+libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
 In file included from ./src/video/x11/SDL_x11video.h:50:0,
                  from ./src/video/x11/SDL_x11dga_c.h:24,
                  from ./src/video/x11/SDL_x11dga.c:30:
@@ -81,11 +184,10 @@ In file included from ./src/video/x11/SDL_x11video.h:50:0,
                                  ^
 compilation terminated.
 make: *** [build/SDL_x11dga.lo] Error 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;通过如下的方法安装一个开发包,然后再次编译就正常了.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
+&lt;/code&gt;
+通过如下的方法安装一个开发包,然后再次编译就正常了.
+&lt;code&gt;bash
+/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -123,42 +225,39 @@ Setting up libxext-dev:i386 (2:1.3.2-1ubuntu0.0.14.04.1) ...
 Setting up x11proto-video-dev (2.3.2-1) ...
 Setting up libxv-dev:i386 (2:1.0.10-1) ...
 /sdl/SDL-1.2.15 $
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;在安装cunit时遇到&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;configure.in:211: error: required file &#39;config.h.in&#39; not found
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决方法是在执行&lt;code&gt;automake --add-missing&lt;/code&gt;之前执行autoheader,生成config.h.in&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed: can&#39;t read ./ltmain.sh: No such file or directory
+&lt;p&gt;在安装cunit时遇到
+&lt;code&gt;bash
+configure.in:211: error: required file &#39;config.h.in&#39; not found
+&lt;/code&gt;
+解决方法是在执行&lt;code&gt;automake --add-missing&lt;/code&gt;之前执行autoheader,生成config.h.in
+&lt;code&gt;bash
+sed: can&#39;t read ./ltmain.sh: No such file or directory
 sed: can&#39;t read libtoolT: No such file or directory
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
+&lt;/code&gt;
+解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
 默认执行make install后,没有安装到系统的/usr/local目录下,是安装到
 /home/user/CUnitHome下了.可以将include/lib/pkgconfig/目录下的文件分别拷贝到相
 应的目录下.&lt;/p&gt;
 
-&lt;p&gt;一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决方法:&lt;code&gt;sudo ldconfig&lt;/code&gt;
+&lt;p&gt;一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:
+&lt;code&gt;bash
+./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
+&lt;/code&gt;
+解决方法:&lt;code&gt;sudo ldconfig&lt;/code&gt;
 Run ldconfig as root to update the cache - if that still doesn&amp;rsquo;t help, you need to add the path to the file ld.so.conf (just type it in on its own line) or better yet, add the entry to a new file (easier to delete) in directory ld.so.conf.d.&lt;/p&gt;
 
-&lt;p&gt;如果出现如下的错误,干脆直接用&lt;code&gt;./configure --prefix=/usr/local&lt;/code&gt; 然后直接&lt;code&gt;make install&lt;/code&gt;搞定.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ldconfig
+&lt;p&gt;如果出现如下的错误,干脆直接用&lt;code&gt;./configure --prefix=/usr/local&lt;/code&gt; 然后直接&lt;code&gt;make install&lt;/code&gt;搞定.
+&lt;code&gt;bash
+$ sudo ldconfig
 /sbin/ldconfig.real: /usr/local/lib/libcunit.so.1 is not a symbolic link
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;交叉编译cunit&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;交叉编译cunit
+&lt;code&gt;bash
+./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;字体环境&lt;/p&gt;
 
@@ -170,26 +269,26 @@ Run ldconfig as root to update the cache - if that still doesn&amp;rsquo;t help,
 &lt;h2 id=&#34;ext2-ext3-ext4:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;ext2/ext3/ext4&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;NAME
-	   e2label - Change the label on an ext2/ext3/ext4 filesystem
+       e2label - Change the label on an ext2/ext3/ext4 filesystem
 
 SYNOPSIS
-	   e2label device [ new-label ]
+       e2label device [ new-label ]
 
 DESCRIPTION
-	   e2label will display or change the filesystem label on the ext2, ext3, or ext4 filesystem located on device.
+       e2label will display or change the filesystem label on the ext2, ext3, or ext4 filesystem located on device.
 
-	   If the optional argument new-label is not present, e2label will simply display the current filesystem label.
+       If the optional argument new-label is not present, e2label will simply display the current filesystem label.
 
-	   If  the  optional  argument new-label is present, then e2label will set the filesystem label to be new-label.  Ext2 filesystem labels can be at most 16 characters long; if new-label is longer than 16 characters, e2label will
-	   truncate it and print a warning message.
+       If  the  optional  argument new-label is present, then e2label will set the filesystem label to be new-label.  Ext2 filesystem labels can be at most 16 characters long; if new-label is longer than 16 characters, e2label will
+       truncate it and print a warning message.
 
-	   It is also possible to set the filesystem label using the -L option of tune2fs(8).
+       It is also possible to set the filesystem label using the -L option of tune2fs(8).
 
 AUTHOR
-	   e2label was written by Theodore Ts&#39;o (tytso@mit.edu).
+       e2label was written by Theodore Ts&#39;o (tytso@mit.edu).
 
 AVAILABILITY
-	   e2label is part of the e2fsprogs package and is available from http://e2fsprogs.sourceforge.net.
+       e2label is part of the e2fsprogs package and is available from http://e2fsprogs.sourceforge.net.
 
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -214,9 +313,9 @@ AVAILABILITY
 #
 # See the man page for details on how to write a sudoers file.
 #
-Defaults	env_reset
-Defaults	mail_badpass
-Defaults	secure_path=&amp;quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;quot;
+Defaults    env_reset
+Defaults    mail_badpass
+Defaults    secure_path=&amp;quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;quot;
 
 # Host alias specification
 
@@ -225,52 +324,62 @@ Defaults	secure_path=&amp;quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 # Cmnd alias specification
 
 # User privilege specification
-root	ALL=(ALL:ALL) ALL
+root    ALL=(ALL:ALL) ALL
 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) ALL
 
 # Allow members of group sudo to execute any command
-%sudo	ALL=(ALL:ALL) ALL
+%sudo   ALL=(ALL:ALL) ALL
 
 # See sudoers(5) for more information on &amp;quot;#include&amp;quot; directives:
 
 #includedir /etc/sudoers.d
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;更改为&lt;/p&gt;
+&lt;p&gt;更改为
+``` bash
+#&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#
-# This file MUST be edited with the &#39;visudo&#39; command as root.
-#
-# Please consider adding local content in /etc/sudoers.d/ instead of
-# directly modifying this file.
-#
-# See the man page for details on how to write a sudoers file.
-#
-Defaults	env_reset
-Defaults	mail_badpass
-Defaults	secure_path=&amp;quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;quot;
+&lt;h1 id=&#34;this-file-must-be-edited-with-the-visudo-command-as-root:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;This file MUST be edited with the &amp;lsquo;visudo&amp;rsquo; command as root.&lt;/h1&gt;
 
-# Host alias specification
+&lt;p&gt;#&lt;/p&gt;
 
-# User alias specification
+&lt;h1 id=&#34;please-consider-adding-local-content-in-etc-sudoers-d-instead-of:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Please consider adding local content in /etc/sudoers.d/ instead of&lt;/h1&gt;
 
-# Cmnd alias specification
+&lt;h1 id=&#34;directly-modifying-this-file:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;directly modifying this file.&lt;/h1&gt;
 
-# User privilege specification
-root	ALL=(ALL:ALL) ALL
+&lt;p&gt;#&lt;/p&gt;
 
-# Members of the admin group may gain root privileges
-%admin ALL=(ALL) ALL
+&lt;h1 id=&#34;see-the-man-page-for-details-on-how-to-write-a-sudoers-file:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;See the man page for details on how to write a sudoers file.&lt;/h1&gt;
 
-# Allow members of group sudo to execute any command
-%sudo	ALL=(ALL:ALL) NOPASSWD:ALL
+&lt;p&gt;#
+Defaults    env_reset
+Defaults    mail_badpass
+Defaults    secure_path=&amp;ldquo;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;rdquo;&lt;/p&gt;
 
-# See sudoers(5) for more information on &amp;quot;#include&amp;quot; directives:
+&lt;h1 id=&#34;host-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Host alias specification&lt;/h1&gt;
 
-#includedir /etc/sudoers.d
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;user-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;User alias specification&lt;/h1&gt;
+
+&lt;h1 id=&#34;cmnd-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Cmnd alias specification&lt;/h1&gt;
+
+&lt;h1 id=&#34;user-privilege-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;User privilege specification&lt;/h1&gt;
+
+&lt;p&gt;root    ALL=(ALL:ALL) ALL&lt;/p&gt;
+
+&lt;h1 id=&#34;members-of-the-admin-group-may-gain-root-privileges:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Members of the admin group may gain root privileges&lt;/h1&gt;
+
+&lt;p&gt;%admin ALL=(ALL) ALL&lt;/p&gt;
+
+&lt;h1 id=&#34;allow-members-of-group-sudo-to-execute-any-command:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Allow members of group sudo to execute any command&lt;/h1&gt;
+
+&lt;p&gt;%sudo   ALL=(ALL:ALL) NOPASSWD:ALL&lt;/p&gt;
+
+&lt;h1 id=&#34;see-sudoers-5-for-more-information-on-include-directives:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;See sudoers(5) for more information on &amp;ldquo;#include&amp;rdquo; directives:&lt;/h1&gt;
+
+&lt;p&gt;#includedir /etc/sudoers.d
+```&lt;/p&gt;
 </description>
     </item>
     
@@ -286,8 +395,8 @@ root	ALL=(ALL:ALL) ALL
 
 &lt;p&gt;最近一直使用的是VitualBox4.3.12-93733,Host系统是Windows7,Guest系统是LinuxMint17.1.使用覆盖安装的方法直接安装VirtualBox5.0.0,然后直接就把之前安装的Guest系统启动了,启动之后提示Guest Additions版本过低,直接就&amp;rdquo;安装增强组件的&amp;rdquo;方法.执行sudo ./VBoxLinuxAdditions.run,一切顺利后再重启进入Guest系统,这时候按下右Ctrl+F全屏,突然报出如下的错误,而虚拟机直接异常退出.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;image/virtualbox_windows7(host&#34; alt=&#34;&#34; /&gt;
-_linuxmint171(guest)_change_full_screen_mode_failed.png)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../image/virtualbox/virtualbox-windows7-host-linuxmint171-guest-change-fullscreen-mode-failed.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;反复重启了几次,只要全屏都报这个问题,之后认为是不是5.0.0版本有Bug,这时就打算退回到4.3.x版本了,打算下载一个最新的4.3.x:VirtualBox-4.3.30-101610-Win.exe,这个版本使用直接覆盖安装了之后,还是不能全屏,全屏的时候也报错,注意,这时候没有安装VBoxGuestAdditions.iso,没办法就打算不用全屏模式了,开始一如既往的开发模式了.突然发现在剪切板在Host系统与Guest系统中不能共享了,这下才意识到更新虚拟机带进来了一些麻烦问题.&lt;/p&gt;
 
@@ -382,7 +491,7 @@ Realtek PCIe GBE Family Controller (adapter 2), VirtualBox Host-Only Ethernet Ad
 重新安装后就可以解决。
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;image/virtualbox_cannot_fount_adapter_interface.png&#34; alt=&#34;&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;../../image/virtualbox/virtualbox-cannot-fount-adapter-interface.png&#34; alt=&#34;&#34; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;把4.3.12重新安装了之后,上面的问题就解决了,应该是4.3.30卸载的时候把虚拟机网卡组件都卸载了,重新安装后就全部又安装回来了.&lt;/p&gt;
@@ -394,74 +503,74 @@ Realtek PCIe GBE Family Controller (adapter 2), VirtualBox Host-Only Ethernet Ad
 
 &lt;p&gt;期间也试过用 sudo apt-get install virtualbox-guest-dkms 依然不能解决问题,现在感觉终于把一个开发用的Guest系统搞坏了.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;image/virtualbox_device_driver_error.png&#34; alt=&#34;&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;../../image/virtualbox/virtualbox-device-driver-error.png&#34; alt=&#34;&#34; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;然后cat /proc/filesystems&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;nodev	sysfs
-nodev	rootfs
-nodev	ramfs
-nodev	bdev
-nodev	proc
-nodev	cgroup
-nodev	cpuset
-nodev	tmpfs
-nodev	devtmpfs
-nodev	debugfs
-nodev	securityfs
-nodev	sockfs
-nodev	pipefs
-nodev	anon_inodefs
-nodev	devpts
-	ext3
-	ext2
-	ext4
-nodev	hugetlbfs
-	vfat
-nodev	ecryptfs
-	fuseblk
-nodev	fuse
-nodev	fusectl
-nodev	pstore
-nodev	mqueue
-nodev	vboxsf
+&lt;pre&gt;&lt;code&gt;nodev   sysfs
+nodev   rootfs
+nodev   ramfs
+nodev   bdev
+nodev   proc
+nodev   cgroup
+nodev   cpuset
+nodev   tmpfs
+nodev   devtmpfs
+nodev   debugfs
+nodev   securityfs
+nodev   sockfs
+nodev   pipefs
+nodev   anon_inodefs
+nodev   devpts
+    ext3
+    ext2
+    ext4
+nodev   hugetlbfs
+    vfat
+nodev   ecryptfs
+    fuseblk
+nodev   fuse
+nodev   fusectl
+nodev   pstore
+nodev   mqueue
+nodev   vboxsf
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;发现里边真的没有iso9660,怎么突然就没有了,不知道那里去了,下面是正常的:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;nodev	sysfs
-nodev	rootfs
-nodev	ramfs
-nodev	bdev
-nodev	proc
-nodev	cgroup
-nodev	cpuset
-nodev	tmpfs
-nodev	devtmpfs
-nodev	debugfs
-nodev	securityfs
-nodev	sockfs
-nodev	pipefs
-nodev	devpts
-	ext3
-	ext2
-	ext4
-nodev	hugetlbfs
-	vfat
-nodev	ecryptfs
-	fuseblk
-nodev	fuse
-nodev	fusectl
-nodev	pstore
-nodev	mqueue
-nodev	rpc_pipefs
-nodev	nfs
-nodev	nfs4
-nodev	nfsd
-nodev	binfmt_misc
-nodev	vboxsf
-	iso9660
+&lt;pre&gt;&lt;code&gt;nodev   sysfs
+nodev   rootfs
+nodev   ramfs
+nodev   bdev
+nodev   proc
+nodev   cgroup
+nodev   cpuset
+nodev   tmpfs
+nodev   devtmpfs
+nodev   debugfs
+nodev   securityfs
+nodev   sockfs
+nodev   pipefs
+nodev   devpts
+    ext3
+    ext2
+    ext4
+nodev   hugetlbfs
+    vfat
+nodev   ecryptfs
+    fuseblk
+nodev   fuse
+nodev   fusectl
+nodev   pstore
+nodev   mqueue
+nodev   rpc_pipefs
+nodev   nfs
+nodev   nfs4
+nodev   nfsd
+nodev   binfmt_misc
+nodev   vboxsf
+    iso9660
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;期间还尝试过进入Recovery Mode,打算发现也没有作用,进入Recovery Mode的方法如下:&lt;/p&gt;
@@ -674,14 +783,14 @@ share /home/lili/share vboxsf  rw,user,noauto,exec 0       1&lt;/p&gt;
       <guid>http://llxwj.github.io/post/windows/</guid>
       <description>
 
-&lt;h1 id=&#34;windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;Windows7安全模式下可以用MSI卸载软件&lt;/h1&gt;
+&lt;h2 id=&#34;windows7安全模式下可以用msi卸载软件:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;Windows7安全模式下可以用MSI卸载软件&lt;/h2&gt;
 
 &lt;p&gt;把下面这个语句写入到一个批处理中,在安全模式下用管理员权限导入到注册表中,就可以在安全模式下卸载软件了.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Minimal\MSIServer /VE /T REG_SZ /F /D &amp;quot;Service&amp;quot; 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;windows10-设置默认输入法:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;Windows10 设置默认输入法&lt;/h1&gt;
+&lt;h2 id=&#34;windows10-设置默认输入法:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;Windows10 设置默认输入法&lt;/h2&gt;
 
 &lt;p&gt;我是从Win7中文版本升级到Win10的，默认只有中文输入法，每次打开浏览器，代码编辑
 器输入代码的时候总是默认输入中文，感觉这个体验非常不好，想配置成默认输入英文的
@@ -699,6 +808,368 @@ share /home/lili/share vboxsf  rw,user,noauto,exec 0       1&lt;/p&gt;
 &lt;p&gt;在Win10下，按WIN + Space可以调出输入法切换菜单，在所有安装的输入法间切换。
 切换为中文后，按Ctrl+Shift可以同类输入法间切换，在微软拼音输入法下，按
 Ctrl+Space 则可以在中文与英文输入间切换，其他输入法下则不行。&lt;/p&gt;
+
+&lt;h2 id=&#34;添加右键使用windows-defender扫描文件或文件夹:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;添加右键使用Windows Defender扫描文件或文件夹&lt;/h2&gt;
+
+&lt;h3 id=&#34;添加:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;添加&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Windows Registry Editor Version 5.00
+
+; Created by: winaero
+; http://winaero.com
+
+; Folder Scan
+
+[HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender]
+&amp;quot;Icon&amp;quot;=&amp;quot;%ProgramFiles%\\\\Windows Defender\\\\EppManifest.dll&amp;quot;
+&amp;quot;MUIVerb&amp;quot;=&amp;quot;使用Windows Defender扫描&amp;quot;
+
+[HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender\Command]
+@=&amp;quot;cmd.exe /s /c \&amp;quot;\&amp;quot;C:\\Program Files\\Windows Defender\\MpCmdRun.exe\&amp;quot; -scan -scantype 3 -SignatureUpdate -file \&amp;quot;%1 \&amp;quot;\&amp;quot; &amp;amp; pause&amp;quot;
+
+; File Scan
+
+[HKEY_CLASSES_ROOT\*\shell\WindowsDefender]
+&amp;quot;Icon&amp;quot;=&amp;quot;%ProgramFiles%\\\\Windows Defender\\\\EppManifest.dll&amp;quot;
+&amp;quot;MUIVerb&amp;quot;=&amp;quot;使用Windows Defender扫描&amp;quot;
+
+[HKEY_CLASSES_ROOT\*\shell\WindowsDefender\Command]
+@=&amp;quot;cmd.exe /s /c \&amp;quot;\&amp;quot;C:\\Program Files\\Windows Defender\\MpCmdRun.exe\&amp;quot; -scan -scantype 3 -SignatureUpdate -file \&amp;quot;%1 \&amp;quot;\&amp;quot; &amp;amp; pause&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;移除:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;移除&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Windows Registry Editor Version 5.00
+
+; Created by: winaero
+; http://winaero.com
+
+; Folder Scan
+
+[-HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender]
+
+
+; File Scan
+
+[-HKEY_CLASSES_ROOT\*\shell\WindowsDefender]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;securecrt-抓log的前置字符串配置:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;SecureCRT 抓Log的前置字符串配置&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;%M-%D %h:%m:%s:%t
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;无线有线同时上网自由选择连接线路:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;无线有线同时上网自由选择连接线路&lt;/h2&gt;
+
+&lt;p&gt;转自卡饭论坛 &lt;a href=&#34;http://www.kafan.cn/edu/9426556.html&#34;&gt;无线有线同时上网自由选择连接线路&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;解决问题&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先查看路由表, 看到有两条默认路由，192.168.149.1是有线的，192.168.0.1是无线的：用命令&lt;code&gt;route print&lt;/code&gt;,
+&lt;img src=&#34;../../image/windows/b963d0bb06f951f51e487b094c1f442b_thumb.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;可以看出最后两个路由的跃点数是不一样的，有线的是21，无线的是25，而电脑会首先选择从跃点小的线路走。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;问题很明确了，下面只需修改无线的跃点数，使它小于无线的跃点数，进入网络中心，选择无线网络-&amp;gt;属性-&amp;gt;ipv4-&amp;gt;属性-&amp;gt;高级-&amp;gt;添加，填入网关，跃点数设为1：
+&lt;img src=&#34;../../image/windows/8ca817dcda5f9bc2294e4f96e111ef09.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重新查看路由表，可以看到无线网络的跃点数已经修改为1，如下图：
+&lt;img src=&#34;../../image/windows/437b039e3cca9e0240f213458672d1c3_thumb.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;跟踪一下路由，看究竟走的是哪个线路，可以看出，走的是192.168.0.1，即无线网络：用命令&lt;code&gt;tracert&lt;/code&gt;,
+&lt;img src=&#34;../../image/windows/c037e30cda3fff47a5a79feba7fbdfd0_thumb.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;最后在有线无线共存的情况下，可以顺利通过无线上网。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;实际在操作的过程中不需要添加网关那一步，只需要在“高级”对话框中，把自动跃点数
+的选项去掉，然后添加一个最小的跃点数1,最后确定退出，再查看路由，如果还是走有
+线的话，把无线断开再重新连接一次即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;拼音加加输入法输入特殊符号的方法:3e44722f300b9d926b8a94aa7aeb0fd0&#34;&gt;拼音加加输入法输入特殊符号的方法&lt;/h2&gt;
+
+&lt;p&gt;1.点击拼音加加输入法工具条,左击和右击都可以,在弹出的菜单中,选择&amp;rdquo;词库及自定义管理&amp;hellip;&amp;ldquo;,打开&amp;rdquo;加加 词库及自定义管理&amp;rdquo;对话框,选择&amp;rdquo;自定义编码词库&amp;rdquo;选项卡,点击最下方的&amp;rdquo;编辑自定义编码词库&amp;hellip;&amp;ldquo;的按钮,会打开一个文本文件&amp;rdquo;userword.txt&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;2.在这个文件的末尾追加下面的内容,然后保存退出,关闭对话框后,回到输入法中,就可以快捷的输入这些符号了,下面的内容来源于网络,方便快速的输入一些特殊符号&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zyfh=ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞ
+      ㄟㄠㄡㄢㄣㄤㄥㄦ（注音符号）
+sxfh=＋－＜＝＞±×÷∈∏∑∕√∝∞∟∠∣‖∧∨∩∪∫∮∴∵∶∷∽≈≌≈≠≡≤≥≤≥≮≯⊕⊙⊥⊿ (数学符号）
+dxxl=ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ（大写希腊）
+xxxl=αβγδεζηθικλμνξοπρστυφχψω（小写希腊）
+dxew=АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮ
+     ЯЁ（大写俄文）
+xxew=абвгдежзийклмнопрстуфхцчшщъыьэю
+     яё（小写俄文）
+dwfh=㎎㎏㎜㎝㎞㎡㏄㏎㏑㏒㏕（单位符号）
+dxlm=ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ（大写罗马）
+xxlm=ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹ（小写罗马）
+fxjt=←↑→↓↖↗↘↙（方向箭头）
+yqsz=①②③④⑤⑥⑦⑧⑨⑩（圆圈数字）
+khsz=⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇（括号数字）
+szd=⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛（数字点）
+zwsz=一二三四五六七八九十（中文数字）
+xxrw=ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをん゛゜ゝゞ（小写日文）
+dxrw=ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶーヽヾ（大写日文）
+hbfh=＄￠￡￥¤（货币符号）
+空格：kg=　，双空格：skg=　　，逗号：dh=，顿号：dh=、句号：jh=。
+圆点：yd=·，间隔号：jgh=·，破折号：pzh=——，波浪号：blh=～
+省略号：slh=……，单引号：dyh=‘，单引号：dyh=’，双引号：syh=“
+双引号：syh=”，方括号：fkh=〔，方括号：fkh=〕，单书名号：dsmh=〈
+单书名号：dsmh=〉，书名号：smh=《，书名号：smh=》，正负号：zfh=±
+乘号：ch=×，除号：ch=÷，对比号：dbh=∶，五角星：wjx=☆
+五角星：wjx=★，双竖线：ssx=‖，竖书名号：ssmh=『，竖书名号：ssmh=』
+空心括号：kxkh=〖，空心括号：kxkh=〗，实心括号：sxkh=【
+实心括号：sxkh=】，对勾：dg=√，约等于：ydy=≈，小于等于：xydy=≤
+大于等于：dydy=≥，雄性符号：xxfh=♂，性别：xb=♂，雌性符号：cxfh=♀
+性别：xb=♀，度：du=°，单撇号：dph=′，分：fen=′，双撇号：sph=″
+秒：miao=″，摄氏度：ssd=℃，温度：wb=℃，美元：my=＄，英镑：yb=￡
+千分号：qfh=‰，章节号：zjh=§，花叉号：hch=※，花a：ha=＠
+左箭头：zjt=←，右箭头：yjt=→，上箭头：sjt=↑，下箭头：xjt=↓
+叹号：th=！，井号：jing=＃，人民币：rmb=￥，百分号：bfh=％
+and：and=＆，和：he=＆，圆括号：ykh=（，圆括号：ykh=），加号：jh=＋
+减号：jh=－，斜杠：xg=／，冒号：mh=：，分号：fh=；，小于：xy=＜
+大于：dy=＞，等于：dy=＝，问号：wh=？，大括号：dkh=｛
+大括号：dkh=｝，PAI：pai=π，No：no=№，Num：num=№，序号：xh=№
+圆圈：yq=○，圆圈：yq=●，菱形：lx=◇，菱形：lx=◆
+方形：fk=□，方形：fk=■，三角形：sjx=△，三角形：sjx=▲
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.我常用的组合&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;;（方向箭头）
+jtz=←
+jts=↑
+jty=→
+jtx=↓
+jtzs=↖
+jtys=↗
+jtyx=↘
+jtzx=↙
+;（圆圈数字）
+yqszy=①
+yqsze=②
+yqszs=③
+yqszs=④
+yqszw=⑤
+yqszl=⑥
+yqszq=⑦
+yqszb=⑧
+yqszj=⑨
+yqszs=⑩
+;（数字点）
+szdy=⒈
+szde=⒉
+szds=⒊
+szds=⒋
+szdw=⒌
+szdl=⒍
+szdq=⒎
+szdb=⒏
+szdj=⒐
+szds=⒑
+szdsy=⒒
+szdse=⒓
+szdss=⒔
+szdss=⒕
+szdsw=⒖
+szdsl=⒗
+szdsq=⒘
+szdsb=⒙
+szds9=⒚
+szdes=⒛
+;括号数字
+khszy=⑴
+khsze=⑵
+khszs=⑶
+khszs=⑷
+khszw=⑸
+khszl=⑹
+khszq=⑺
+khszb=⑻
+khszj=⑼
+khszs=⑽
+khszsy=⑾
+khszse=⑿
+khszss=⒀
+khszss=⒁
+khszsw=⒂
+khszsl=⒃
+khszsq=⒄
+khszsb=⒅
+khszsj=⒆
+khszes=⒇
+;省略号：
+slh=……
+;单引号：
+dyh=‘
+;单引号：
+dyh=’
+;双引号：
+syh=“
+;双引号：
+syh=”
+;方括号：
+fkh=〔
+;方括号：
+fkh=〕
+;单书名号：
+dsmh=〈
+;单书名号：
+dsmh=〉
+;书名号：
+smh=《
+;书名号：
+smh=》
+;正负号：
+zfh=±
+;乘号：
+ch=×
+;除号：
+ch=÷
+;对比号：
+dbh=∶
+;五角星：
+wjx=☆
+;五角星：
+wjx=★
+;双竖线：
+ssx=‖
+;竖书名号：
+ssmh=『
+;竖书名号：
+ssmh=』
+;空心括号：
+kxkh=〖
+;空心括号：
+kxkh=〗
+;实心括号：
+sxkh=【
+;实心括号：
+sxkh=】
+;对勾：
+dg=√
+;约等于：
+ydy=≈
+;小于等于：
+xydy=≤
+;大于等于：
+dydy=≥
+;雄性符号：
+xxfh=♂
+;性别：
+xb=♂
+;雌性符号：
+cxfh=♀
+;性别：
+xb=♀
+;度：
+du=°
+;单撇号：
+dph=′
+;分：
+fen=′
+;双撇号：
+sph=″
+;秒：
+miao=″
+;摄氏度：
+ssd=℃
+;温度：
+wd=℃
+;美元：
+my=＄
+;英镑：
+yb=￡
+;千分号：
+qfh=‰
+;章节号：
+zjh=§
+;花叉号：
+hch=※
+;花a：
+ha=＠
+;叹号：
+th=！
+;井号：
+jing=＃
+;人民币：
+rmb=￥
+;百分号：
+bfh=％
+;and：
+and=＆
+;和：
+he=＆
+;圆括号：
+ykh=（
+;圆括号：
+ykh=）
+;加号：
+jh=＋
+;减号：
+jh=－
+;斜杠：
+xg=／
+;冒号：
+mh=：
+;分号：
+fh=；
+;小于：
+xy=＜
+;大于：
+dy=＞
+;等于：
+dy=＝
+;问号：
+wh=？
+;大括号：
+dkh=｛
+;大括号：
+dkh=｝
+;PAI：
+pai=π
+;No：
+no=№
+;Num：
+num=№
+;序号：
+xh=№
+;圆圈：
+yq=○
+;圆圈：
+yq=●
+;菱形：
+lx=◇
+;菱形：
+lx=◆
+;方形：
+fk=□
+;方形：
+fk=■
+;三角形：
+sjx=△
+;三角形：
+sjx=▲
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4.拼音加加编码符号表&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://lijie.cai.swufe.edu.cn/pyjj/pyjjfhlb.HTM&#34;&gt;http://lijie.cai.swufe.edu.cn/pyjj/pyjjfhlb.HTM&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/windows/pinyinjiajia_bian_ma_fu_hao_biao_1.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/windows/pinyinjiajia_bian_ma_fu_hao_biao_2.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
 </description>
     </item>
     

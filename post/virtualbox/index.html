@@ -52,8 +52,8 @@
 
 <p>最近一直使用的是VitualBox4.3.12-93733,Host系统是Windows7,Guest系统是LinuxMint17.1.使用覆盖安装的方法直接安装VirtualBox5.0.0,然后直接就把之前安装的Guest系统启动了,启动之后提示Guest Additions版本过低,直接就&rdquo;安装增强组件的&rdquo;方法.执行sudo ./VBoxLinuxAdditions.run,一切顺利后再重启进入Guest系统,这时候按下右Ctrl+F全屏,突然报出如下的错误,而虚拟机直接异常退出.</p>
 
-<p><img src="image/virtualbox_windows7(host" alt="" />
-_linuxmint171(guest)_change_full_screen_mode_failed.png)</p>
+<p><img src="../../image/virtualbox/virtualbox-windows7-host-linuxmint171-guest-change-fullscreen-mode-failed.png" alt="" />
+</p>
 
 <p>反复重启了几次,只要全屏都报这个问题,之后认为是不是5.0.0版本有Bug,这时就打算退回到4.3.x版本了,打算下载一个最新的4.3.x:VirtualBox-4.3.30-101610-Win.exe,这个版本使用直接覆盖安装了之后,还是不能全屏,全屏的时候也报错,注意,这时候没有安装VBoxGuestAdditions.iso,没办法就打算不用全屏模式了,开始一如既往的开发模式了.突然发现在剪切板在Host系统与Guest系统中不能共享了,这下才意识到更新虚拟机带进来了一些麻烦问题.</p>
 
@@ -148,7 +148,7 @@ Realtek PCIe GBE Family Controller (adapter 2), VirtualBox Host-Only Ethernet Ad
 重新安装后就可以解决。
 </code></pre>
 
-<p><img src="image/virtualbox_cannot_fount_adapter_interface.png" alt="" />
+<p><img src="../../image/virtualbox/virtualbox-cannot-fount-adapter-interface.png" alt="" />
 </p>
 
 <p>把4.3.12重新安装了之后,上面的问题就解决了,应该是4.3.30卸载的时候把虚拟机网卡组件都卸载了,重新安装后就全部又安装回来了.</p>
@@ -160,74 +160,74 @@ Realtek PCIe GBE Family Controller (adapter 2), VirtualBox Host-Only Ethernet Ad
 
 <p>期间也试过用 sudo apt-get install virtualbox-guest-dkms 依然不能解决问题,现在感觉终于把一个开发用的Guest系统搞坏了.</p>
 
-<p><img src="image/virtualbox_device_driver_error.png" alt="" />
+<p><img src="../../image/virtualbox/virtualbox-device-driver-error.png" alt="" />
 </p>
 
 <p>然后cat /proc/filesystems</p>
 
-<pre><code>nodev	sysfs
-nodev	rootfs
-nodev	ramfs
-nodev	bdev
-nodev	proc
-nodev	cgroup
-nodev	cpuset
-nodev	tmpfs
-nodev	devtmpfs
-nodev	debugfs
-nodev	securityfs
-nodev	sockfs
-nodev	pipefs
-nodev	anon_inodefs
-nodev	devpts
-	ext3
-	ext2
-	ext4
-nodev	hugetlbfs
-	vfat
-nodev	ecryptfs
-	fuseblk
-nodev	fuse
-nodev	fusectl
-nodev	pstore
-nodev	mqueue
-nodev	vboxsf
+<pre><code>nodev   sysfs
+nodev   rootfs
+nodev   ramfs
+nodev   bdev
+nodev   proc
+nodev   cgroup
+nodev   cpuset
+nodev   tmpfs
+nodev   devtmpfs
+nodev   debugfs
+nodev   securityfs
+nodev   sockfs
+nodev   pipefs
+nodev   anon_inodefs
+nodev   devpts
+    ext3
+    ext2
+    ext4
+nodev   hugetlbfs
+    vfat
+nodev   ecryptfs
+    fuseblk
+nodev   fuse
+nodev   fusectl
+nodev   pstore
+nodev   mqueue
+nodev   vboxsf
 </code></pre>
 
 <p>发现里边真的没有iso9660,怎么突然就没有了,不知道那里去了,下面是正常的:</p>
 
-<pre><code>nodev	sysfs
-nodev	rootfs
-nodev	ramfs
-nodev	bdev
-nodev	proc
-nodev	cgroup
-nodev	cpuset
-nodev	tmpfs
-nodev	devtmpfs
-nodev	debugfs
-nodev	securityfs
-nodev	sockfs
-nodev	pipefs
-nodev	devpts
-	ext3
-	ext2
-	ext4
-nodev	hugetlbfs
-	vfat
-nodev	ecryptfs
-	fuseblk
-nodev	fuse
-nodev	fusectl
-nodev	pstore
-nodev	mqueue
-nodev	rpc_pipefs
-nodev	nfs
-nodev	nfs4
-nodev	nfsd
-nodev	binfmt_misc
-nodev	vboxsf
-	iso9660
+<pre><code>nodev   sysfs
+nodev   rootfs
+nodev   ramfs
+nodev   bdev
+nodev   proc
+nodev   cgroup
+nodev   cpuset
+nodev   tmpfs
+nodev   devtmpfs
+nodev   debugfs
+nodev   securityfs
+nodev   sockfs
+nodev   pipefs
+nodev   devpts
+    ext3
+    ext2
+    ext4
+nodev   hugetlbfs
+    vfat
+nodev   ecryptfs
+    fuseblk
+nodev   fuse
+nodev   fusectl
+nodev   pstore
+nodev   mqueue
+nodev   rpc_pipefs
+nodev   nfs
+nodev   nfs4
+nodev   nfsd
+nodev   binfmt_misc
+nodev   vboxsf
+    iso9660
 </code></pre>
 
 <p>期间还尝试过进入Recovery Mode,打算发现也没有作用,进入Recovery Mode的方法如下:</p>

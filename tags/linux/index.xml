@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on llxwj</title>
+    <link>http://llxwj.github.io/tags/linux/</link>
+    <description>Recent content in Linux on llxwj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 27 Oct 2015 14:04:17 +0800</lastBuildDate>
+    <atom:link href="http://llxwj.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>在Linux下通过网络接收串口打印</title>
+      <link>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</link>
+      <pubDate>Tue, 27 Oct 2015 14:04:17 +0800</pubDate>
+      
+      <guid>http://llxwj.github.io/post/through_the_network_to_receive_serial_print_in_linux/</guid>
+      <description>&lt;p&gt;嵌入式开发中我们经常需要对平台的串口打印数据进行采集，便于分析程序的运行行为，
+确定软件的运行流程，对软件的问题进行故障定位等。串口数据的输出目前主流的波特率
+配置是115200，如果打印太多的数据，会拖慢程序的运行，导致为了采集数据，而要等待
+很长的时间。&lt;/p&gt;
+
+&lt;p&gt;这里有一种办法可以通过网络采集串口打印，这样能节省非常多的等待时间，但是嵌入式
+软件平台必须是Linux的。这里用到的Linux工具是nc命令。先在工作主机上用nc命令建立
+一个端口监听：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nc -l &amp;lt;端口号&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;nc监听的时候默认是用eth0监听的，如果有多个网卡，可以用如下的命令进行监听：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nc -l &amp;lt;网卡的IP地址&amp;gt; &amp;lt;端口号&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在嵌入式平台上，启动软件之前，用重定向的方法将stdout的数据重定向到工作主机上的
+监听端口：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./program | nc &amp;lt;工作主机的IP地址&amp;gt; &amp;lt;端口号&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;程序的打印可以输出到stdout与stderr，为了能捕获stderr的打印，需要在程序运行时将
+stderr也重定向到stdout：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./program 2 &amp;gt; 1 | nc &amp;lt;工作主机的IP地址&amp;gt; &amp;lt;端口号&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样当嵌入式软件启动后，在工作主机启动nc监听命令的终端窗口中会看到本是输出到串
+口的打印，当数据非常多的时候，为了便于处理，应该将终端中捕获到的串口数据输出到
+文件中，这时需要Linux的tee命令，只是在监听的时候，需要这样做：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nc -l 12345 | tee serial.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在感觉Linux的管道真的是太方便，非常强大，可以随意组合，能完成很多意想不到的
+功能。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
