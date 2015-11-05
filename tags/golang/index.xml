@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on llxwj</title>
+    <link>http://localhost:1313/tags/golang/</link>
+    <description>Recent content in Golang on llxwj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 28 Oct 2015 10:31:47 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>一站式学习Wireshark</title>
+      <link>http://localhost:1313/post/learning_wireshark/</link>
+      <pubDate>Wed, 28 Oct 2015 10:31:47 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/learning_wireshark/</guid>
+      <description>
+
+&lt;p&gt;转自&lt;a href=&#34;https://community.emc.com/message/818739#818739&#34;&gt;EMC中文支持论坛&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;一站式学习wireshark-一-wireshark基本用法:63321ed1160c3241a0cbdb95781acdad&#34;&gt;一站式学习Wireshark（一）：Wireshark基本用法&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;按照国际惯例，从最基本的说起。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;抓取报文:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;下载和安装好Wireshark之后，启动Wireshark并且在接口列表中选择接口名，然后开始在此接口上抓包。例如，如果想要在无线网络上抓取流量，点击无线接口。点击Capture Options可以配置高级属性，但现在无此必要。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image002.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;点击接口名称之后，就可以看到实时接收的报文。Wireshark会捕捉系统发送和接收的每一个报文。如果抓取的接口是无线并且选项选取的是混合模式，那么也会看到网络上其他报文。&lt;/p&gt;
+
+&lt;p&gt;上端面板每一行对应一个网络报文，默认显示报文接收时间（相对开始抓取的时间点），源和目标IP地址，使用协议和报文相关信息。点击某一行可以在下面两个窗口看到更多信息。“+”图标显示报文里面每一层的详细信息。底端窗口同时以十六进制和ASCII码的方式列出报文内容。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image003.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;需要停止抓取报文的时候，点击左上角的停止按键。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image004.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;色彩标识:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;进行到这里已经看到报文以绿色，蓝色，黑色显示出来。Wireshark通过颜色让各种流量的报文一目了然。比如默认绿色是TCP报文，深蓝色是DNS，浅蓝是UDP，黑色标识出有问题的TCP报文——比如乱序报文。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image005.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;报文样本:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;比如说你在家安装了Wireshark，但家用LAN环境下没有感兴趣的报文可供观察，那么可以去Wireshark wiki下载&lt;a href=&#34;http://wiki.wireshark.org/SampleCaptures&#34;&gt;报文样本文件&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;打开一个抓取文件相当简单，在主界面上点击Open并浏览文件即可。也可以在Wireshark里保存自己的抓包文件并稍后打开。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image006.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;过滤报文:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果正在尝试分析问题，比如打电话的时候某一程序发送的报文，可以关闭所有其他使用网络的应用来减少流量。但还是可能有大批报文需要筛选，这时要用到Wireshark过滤器。
+最基本的方式就是在窗口顶端过滤栏输入并点击Apply（或按下回车）。例如，输入“dns”就会只看到DNS报文。输入的时候，Wireshark会帮助自动完成过滤条件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image007.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;也可以点击Analyze菜单并选择Display Filters来创建新的过滤条件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image008.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;另一件很有趣的事情是你可以右键报文并选择Follow TCP Stream。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image009.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;你会看到在服务器和目标端之间的全部会话。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image010.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;关闭窗口之后，你会发现过滤条件自动被引用了——Wireshark显示构成会话的报文。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image011.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;检查报文:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;选中一个报文之后，就可以深入挖掘它的内容了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image012.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;也可以在这里创建过滤条件——只需右键细节并使用Apply as Filter子菜单，就可以根据此细节创建过滤条件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image013.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Wireshark是一个非常之强大的工具，第一节只介绍它的最基本用法。网络专家用它来debug网络协议实现细节，检查安全问题，网络协议内部构件等等。&lt;/p&gt;
+
+&lt;h2 id=&#34;一站式学习wireshark-二-应用wireshark观察基本网络协议:63321ed1160c3241a0cbdb95781acdad&#34;&gt;一站式学习Wireshark（二）：应用Wireshark观察基本网络协议&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;TCP/IP通过三次握手建立一个连接。这一过程中的三种报文是：SYN，SYN/ACK，ACK。&lt;/p&gt;
+
+&lt;p&gt;第一步是找到PC发送到网络服务器的第一个SYN报文，这标识了TCP三次握手的开始。
+如果你找不到第一个SYN报文，选择Edit -&amp;gt; Find Packet菜单选项。选择Display Filter，输入过滤条件：tcp.flags，这时会看到一个flag列表用于选择。选择合适的flag，tcp.flags.syn并且加上==1。点击Find，之后trace中的第一个SYN报文就会高亮出来了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image001.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;注意：Find Packet也可以用于搜索十六进制字符，比如恶意软件信号，或搜索字符串，比如抓包文件中的协议命令。&lt;/p&gt;
+
+&lt;p&gt;一个快速过滤TCP报文流的方式是在&lt;strong&gt;Packet List Panel&lt;/strong&gt;中右键报文，并且选择&lt;strong&gt;Follow TCP Stream&lt;/strong&gt;。这就创建了一个只显示TCP会话报文的自动过滤条件。
+这一步骤会弹出一个会话显示窗口，默认情况下包含TCP会话的ASCII代码，客户端报文用红色表示服务器报文则为蓝色。&lt;/p&gt;
+
+&lt;p&gt;窗口类似下图所示，对于读取协议有效载荷非常有帮助，比如HTTP，SMTP，FTP。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image2_002.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;关闭弹出窗口，Wireshark就只显示所选TCP报文流。现在可以轻松分辨出3次握手信号。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image2_004.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;注意：这里Wireshark自动为此TCP会话创建了一个显示过滤。本例中：(ip.addr eq 192.168.1.2 and ip.addr eq 209.85.227.19) and (tcp.port eq 80 and tcp.port eq 52336)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SYN&lt;/strong&gt;报文：
+图中显示的5号报文是从客户端发送至服务器端的SYN报文，此报文用于与服务器建立同步，确保客户端和服务器端的通信按次序传输。SYN报文的头部有一个32 bit序列号。底端对话框显示了报文一些有用信息如报文类型，序列号。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SYN/ACK&lt;/strong&gt;报文：
+7号报文是服务器的响应。一旦服务器接收到客户端的SYN报文，就读取报文的序列号并且使用此编号作为响应，也就是说它告知客户机，服务器接收到了SYN报文，通过对原SYN报文序列号加一并且作为响应编号来实现，之后客户端就知道服务器能够接收通信。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ACK&lt;/strong&gt;报文：
+8号报文是客户端对服务器发送的确认报文，告诉服务器客户端接收到了SYN/ACK报文，并且与前一步一样客户端也将序列号加一，此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ARP &amp;amp; ICMP&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;开启Wireshark抓包。打开Windows控制台窗口，使用ping命令行工具查看与相邻机器的连接状况。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image2_005.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;停止抓包之后，Wireshark如下图所示。
+ARP和ICMP报文相对较难辨认，创建只显示ARP或ICMP的过滤条件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image2_006.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ARP&lt;/strong&gt;报文：
+地址解析协议，即ARP（Address Resolution Protocol），是根据IP地址获取物理地址的一个TCP/IP协议。其功能是：主机将ARP请求广播到网络上的所有主机，并接收返回消息，确定目标IP地址的物理地址，同时将IP地址和硬件地址存入本机ARP缓存中，下次请求时直接查询ARP缓存。&lt;/p&gt;
+
+&lt;p&gt;最初从PC发出的ARP请求确定IP地址192.168.1.1的MAC地址，并从相邻系统收到ARP回复。ARP请求之后，会看到ICMP报文。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ICMP&lt;/strong&gt;报文：
+网络控制消息协定（Internet Control Message Protocol，ICMP）用于TCP/IP网络中发送控制消息，提供可能发生在通信环境中的各种问题反馈，通过这些信息，令管理者可以对所发生的问题作出诊断，然后采取适当的措施解决。&lt;/p&gt;
+
+&lt;p&gt;PC发送echo请求，收到echo回复如上图所示。ping报文被mark成Type 8，回复报文mark成Type 0。&lt;/p&gt;
+
+&lt;p&gt;如果多次ping同一系统，在PC上删除ARP cache，使用如下ARP命令之后，会产生一个新的ARP请求。
+C:&amp;gt; ping 192.168.1.1
+&amp;hellip; ping output &amp;hellip;
+C:&amp;gt; arp –d *&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HTTP&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;HTTP协议是目前使用最广泛的一种基础协议，这得益于目前很多应用都基于WEB方式，实现容易，软件开发部署也简单，无需额外的客户端，使用浏览器即可使用。这一过程开始于请求服务器传送网络文件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image2_007.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;从上图可见报文中包括一个GET命令，当HTTP发送初始GET命令之后，TCP继续数据传输过程，接下来的链接过程中HTTP会从服务器请求数据并使用TCP将数据传回客户端。传送数据之前，服务器通过发送HTTP OK消息告知客户端请求有效。如果服务器没有将目标发送给客户端的许可，将会返回403 Forbidden。如果服务器找不到客户端所请求的目标，会返回404。&lt;/p&gt;
+
+&lt;p&gt;如果没有更多数据，连接可被终止，类似于TCP三次握手信号的SYN和ACK报文，这里发送的是FIN和ACK报文。当服务器结束传送数据，就发送FIN/ACK给客户端，此报文表示结束连接。接下来客户端返回ACK报文并且对FIN/ACK中的序列号加1。这就从服务器端终止了通信。要结束这一过程客户端必须重新对服务器端发起这一过程。必须在客户端和服务器端都发起并确认FIN/ACK过程。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;附录：网络协议报文结构与抓包示例&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP/IP协议栈&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/TCPIP.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;以太网帧示例&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/以太网帧示例.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IP数据报格式&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/IP数据报格式.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/IP数据报格式1.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IP报文示例&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/IP报文示例.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UDP帧结构&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/UDP帧结构.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP消息结构&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/TCP消息结构.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP报文示例&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/TCP报文示例.PNG.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;一站式学习wireshark-三-应用wireshark-io-graphs分析数据流:63321ed1160c3241a0cbdb95781acdad&#34;&gt;一站式学习Wireshark（三）：应用Wireshark IO Graphs分析数据流&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;基本IO Graphs&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;IO graphs是一个非常好用的工具。基本的Wireshark IO graph会显示抓包文件中的整体流量情况，通常是以每秒为单位（报文数或字节数）。默认X轴时间间隔是1秒，Y轴是每一时间间隔的报文数。如果想要查看每秒bit数或byte数，点击“Unit”，在“Y Axis”下拉列表中选择想要查看的内容。这是一种基本的应用，对于查看流量中的波峰/波谷很有帮助。要进一步查看，点击图形中的任意点就会看到报文的细节。&lt;/p&gt;
+
+&lt;p&gt;为了讲解方便，点击&lt;a href=&#34;https://www.cloudshark.org/captures/d6f9e83699c8&#34;&gt;示例报文包&lt;/a&gt;，或用自己的wireshark点击Statistics – IO Graphs。这个抓包是HTTP下载遇到报文丢失的情况。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_002.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;注意：过滤条件为空，此图形显示所有流量。&lt;/p&gt;
+
+&lt;p&gt;这个默认条件下的显示在大多数troubleshooting中并不是非常有用。将Y轴改为bits/tick这样就可以看到每秒的流量。从这张图可以看到峰值速率是300kbps左右。如果你看到有些地方流量下降为零，那可能是一个出问题的点。这个问题在图上很好发现，但在看报文列表时可能不那么明显。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_003.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;过滤&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;每一个图形都可以应用一个过滤条件。这里创建两个不同的graph，一个HTTP一个ICMP。可以看到过滤条件中Graph 1使用“http”Graph 2使用“icmp”。图中可以看到红色ICMP流量中有些间隙，进一步分析。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_004.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;创建两个图形，一个显示ICMP Echo（Type=8）一个显示ICMP Reply（Type=0）。正常情况下对于每一个echo请求会有一个连续的reply。这里的情况是：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_005.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;可以看到红色脉冲线(icmp type==0 – ICMP Reply)中间有间隙，而整张图中ICMP请求保持连续。这意味着有些reply没有接收到。这是由于报文丢失导致的reply drop。CLI中看到的ping信息如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_006.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;常用排错过滤条件&lt;/strong&gt;:
+对于排查网络延时/应用问题有一些过滤条件是非常有用的：
+tcp.analysis.lost_segment：表明已经在抓包中看到不连续的序列号。报文丢失会造成重复的ACK，这会导致重传。
+tcp.analysis.duplicate_ack：显示被确认过不止一次的报文。大凉的重复ACK是TCP端点之间高延时的迹象。
+tcp.analysis.retransmission：显示抓包中的所有重传。如果重传次数不多的话还是正常的，过多重传可能有问题。这通常意味着应用性能缓慢和/或用户报文丢失。
+tcp.analysis.window_update：将传输过程中的TCP window大小图形化。如果看到窗口大小下降为零，这意味着发送方已经退出了，并等待接收方确认所有已传送数据。这可能表明接收端已经不堪重负了。
+tcp.analysis.bytes_in_flight：某一时间点网络上未确认字节数。未确认字节数不能超过你的TCP窗口大小（定义于最初3此TCP握手），为了最大化吞吐量你想要获得尽可能接近TCP窗口大小。如果看到连续低于TCP窗口大小，可能意味着报文丢失或路径上其他影响吞吐量的问题。
+tcp.analysis.ack_rtt：衡量抓取的TCP报文与相应的ACK。如果这一时间间隔比较长那可能表示某种类型的网络延时（报文丢失，拥塞，等等）。&lt;/p&gt;
+
+&lt;p&gt;在抓包中应用以上一些过滤条件：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_007.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;注意：Graph 1是HTTP总体流量，显示形式为packets/tick，时间间隔1秒。Graph 2是TCP丢失报文片段。Graph 3是TCP 重复ACK。Graph 4是TCP重传。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从这张图可以看到：相比于整体HTTP流量，有很多数量的重传以及重复ACK。从这张图中，可以看到这些事件发生的时间点，以及在整体流量中所占的比例。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;函数&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;IO Graphs有六个可用函数：SUM, MIN, AVG, MAX, COUNT, LOAD。&lt;/p&gt;
+
+&lt;p&gt;MIN( ), AVG( ), MAX( )
+首先看一下帧之间的最小，平均和最大时间，这对于查看帧/报文之间的延时非常有用。我们可以将这些函数结合“frame.time_delta”过滤条件看清楚帧延时，并使得往返延时更为明显。如果抓包文件中包含不同主机之间的多个会话，而只想知道其中一个pair，可将“frame.time_delta”结合源和目标主机条件如“ip.addr==x.x.x.x &amp;amp;&amp;amp; ip.addr==y.y.y.y”。如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_008.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;我们做了以下步骤：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;将Y轴设置为“Advanced”，让Caculation域可见。不做这一步就看不到计算选项。&lt;/li&gt;
+&lt;li&gt;X轴时间间隔1秒，所以每个柱状图代表1秒间隔的计算结果。&lt;/li&gt;
+&lt;li&gt;过滤出两个特定IP地址的HTTP会话，使用条件：“(ip.addr==192.168.1.4&amp;amp;&amp;amp; ip.addr==128.173.87.169) &amp;amp;&amp;amp; http”。&lt;/li&gt;
+&lt;li&gt;使用3个不同的graph，分别计算Min(), Avg(), Max()。&lt;/li&gt;
+&lt;li&gt;对每一个计算结果应用条件“frame.time_delta”，将style设置成“FBar”，显示效果最佳。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;从上图可见，在第106秒时数据流的MAX frame.delta_time达到0.7秒，这是一个严重延时并且导致了报文丢失。如果想要深入研究，只需要点击图中这一点，就会跳转至相应帧。对应于本例抓包文件中第1003个报文。如果你看见帧之间平均延时相对较低但突然某一点延时很长，可点击这一帧，看看这一时间点究竟发生了什么。&lt;/p&gt;
+
+&lt;p&gt;Count( )&lt;br /&gt;
+此函数计算时间间隔内事件发生的次数，在查看TCP分析标识符时很有用，例如重传。例图如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_009.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Sum( )&lt;br /&gt;
+该函数统计事件的累加值。有两种常见的用例是看在捕获TCP数据量，以及检查TCP序列号。让我们看看第一个TCP长度的例子。创建两个图，一个使用客户端IP 192.168.1.4为源，另一个使用客户端IP作为一个目的地址。每个图我们将sum()功能结合tcp.len过滤条件。拆分成两个不同的图我们就可以看到在一个单一的方向移动的数据量。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_010.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;从图表中我们可以看到，发送到客户端的数据量（IP.DST = = 192.168.1.4过滤条件）比来自客户端的数据量要高。在图中红色表示。黑条显示从客户端到服务器的数据，相对数据量很小。这是有道理的，因为客户只是请求文件和收到之后发送确认数据，而服务器发送大文件。很重要的一点是，如果你交换了图的顺序，把客户端的IP作为图1的目标地址，并且客户端IP作为图2的源地址，采用了FBAR的时候可能看不到正确的数据显示。因为图编号越低表示在前台显示，可能会覆盖较高图号。&lt;/p&gt;
+
+&lt;p&gt;现在让我们看一下同一个数据包丢失和延迟的TCP序列号。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_011.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;可以在图中看到若干峰值和下降，表示TCP传输有问题。与正常TCP报文比较：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image3_012.png&#34; alt=&#34;&#34; /&gt;
+
+这张图可以看到TCP序列号相当稳定地增加，表示传输平稳，没有过多重传或丢包。&lt;/p&gt;
+
+&lt;h2 id=&#34;一站式学习wireshark-四-网络性能排查之tcp重传与重复ack:63321ed1160c3241a0cbdb95781acdad&#34;&gt;一站式学习Wireshark（四）：网络性能排查之TCP重传与重复ACK&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;介绍:63321ed1160c3241a0cbdb95781acdad&#34;&gt;介绍&lt;/h3&gt;
+
+&lt;p&gt;作为网络管理员，很多时间必然会耗费在修复慢速服务器和其他终端。但用户感到网络运行缓慢并不意味着就是网络问题。
+解决网络性能问题，首先从TCP错误恢复功能（TCP重传与重复ACK）和流控功能说起。之后阐述如何发现网络慢速之源。最后，对网络各组成部分上的数据流进行概况分析。这几张内容将会帮助读者识别，诊断，以及排查慢速网络。&lt;/p&gt;
+
+&lt;h3 id=&#34;更多信息:63321ed1160c3241a0cbdb95781acdad&#34;&gt;更多信息&lt;/h3&gt;
+
+&lt;p&gt;接下来的内容，较多是黑白图片了。虽然看起来有点不爽，但还是很值得一看。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP错误恢复功能&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;TCP的错误恢复功能是定位，诊断及修复网络延时的最佳工具。
+延时可以在单程也可以往返方向测量。高延时是网络管理员的头号大敌。本节我们讨论TCP高延时是如何导致序列号和确认号乱序的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP重传&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;主机报文重传是TCP最基本的错误恢复功能，它的目的是防止报文丢失。&lt;/p&gt;
+
+&lt;p&gt;报文丢失的可能因素有很多种，包括应用故障，路由设备过载，或暂时的服务宕机。报文级别速度是很高的，而通常报文丢失是暂时的，因此TCP能够发现和恢复报文丢失显得尤为重要。&lt;/p&gt;
+
+&lt;p&gt;决定报文是否有必要重传的主要机制是重传计时器（retransmission timer），它的主要功能是维护重传超时（RTO）值。当报文使用TCP传输时，重传计时器启动，收到ACK时计时器停止。报文发送至接收到ACK的时间称为往返时间（RTT）。对若干次时间取平均值，该值用于确定最终RTO值。在最终RTO值确定之前，确定每一次报文传输是否有丢包发生使用重传计时器，下图说明了TCP重传过程。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_001.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;当报文发送之后，但接收方尚未发送TCP ACK报文，发送方假设源报文丢失并将其重传。重传之后，RTO值加倍；如果在2倍RTO值到达之前还是没有收到ACK报文，就再次重传。如果仍然没有收到ACK，那么RTO值再次加倍。如此持续下去，每次重传RTO都翻倍，直到收到ACK报文或发送方达到配置的最大重传次数。&lt;/p&gt;
+
+&lt;p&gt;最大重传次数取决于发送操作系统的配置值。默认情况下，Windows主机默认重传5次。大多数Linux系统默认最大15次。两种操作系统都可配置。
+示例如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_002.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_003.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;TCP重传过程发送的第一个报文如下图所示（图片不很清楚，已经尽力了）：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_004.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;这是一个TCP PSH/ACK报文①，包含648字节数据②，从10.3.30.1发送至10.3.71.7。这是一个典型的数据报文。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在通常情况下，第一个报文发送之后很快会收到TCP ACK报文。然而，在这个case里，第二个是重传报文。可以在Packet list面板里看到。Info栏清楚的标明“TCP Retransmission”，报文以黑色背景红色字体标出。下图是Packet List面板中的重传示例（仍然不清楚，但可参见上图）：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_005.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;也可以在Packet Details和Packet Bytes面板中查看来确定是否是重传报文，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_006.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;注意此报文与源报文相同（除了IP标识和checksum字段）。要验证这一点，比较两个报文的Packet Bytes①。&lt;/p&gt;
+
+&lt;p&gt;在Packet Details面板，注意到重传报文在SEQ/ACK Analysis下面有些额外的信息②。这些信息是由Wireshark提供的而并非报文本身。SEQ/ACK Analysis告诉我们这确实是一个重传报文，RTO值是0.206秒，此时的RTO是基于报文1的时间增量。&lt;/p&gt;
+
+&lt;p&gt;检查剩下的报文会得到类似的结果，不同之处只有IP标识和checksum，以及RTO值。要使报文之间的时间间隔形象化，在Packet List面板中查看Time栏，如下图所示。这里可以看到RTO值的翻倍增长关系。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_007.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP重复ACK以及快速重传&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;重复ACK是指在接收方收到乱序报文时，所发出的一类TCP报文。TCP使用报文头的序列号和确认号以有效保证数据按照发送的顺序接收和重组。&lt;/p&gt;
+
+&lt;p&gt;当TCP连接建立以后，握手过程中交换的一个最重要的信息是初始序列号（ISN）。一旦连接双方设定了ISN之后，接下来发送的报文所包含的序列号增加一个数据载荷值。&lt;/p&gt;
+
+&lt;p&gt;假设有个主机ISN是5000，发送500字节报文至接收方。一旦报文接收之后，接收端回复一个ACK号为5500的TCP ACK报文，基于以下公式：
+Sequence Number In + Bytes of Data Received = Acknowledgment Number Out
+按照上述计算结果，返回发送端的确认编号实际上是接收端希望收到的序列号。示例如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_008.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;数据接收方通过序列号来检查报文丢失。接收方通过追踪接收到的序列号，能够确认序列号是否乱序。当接收方收到一个不正常的序列号，它会假设传输过程中有报文丢失。为了正确重传数据，接收方必须拥有丢失报文，所以它发送包含有丢失报文正确序列号的ACK报文，以便发送方重传此报文。&lt;/p&gt;
+
+&lt;p&gt;当重传主机从发送端接收到3个重复ACK时，它会假设此报文确实在传送中丢失，并且立即发送一个快速重传。一旦触发了快速重传，所有正在传输的其他报文都被放入队列中，直到快速重传报文发送为止。过程如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_009.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;承接上文的彩图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_010.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;本例中第一个报文如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_011.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;这是一个TCP ACK报文，从数据接收端（172.31.136.85）发给发送端（195.81.202.68）①，确认前一个报文所发送的数据。
+此报文中的确认编号是1310973186②，应当是下一个接收报文的序列号，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_012.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;不幸的是接收端的序列号是1310984130①，并不是所期望的值。这意味着报文在传送中丢失。接收端注意到报文乱序，并且在第三个报文中发送重复ACK，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_013.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;可以通过以下两种方式之一来确认这是一个重复ACK：
+在Packet Detaisl面板中的Info栏。报文呈现黑色背景红色字体。
+SEQ/ACK Analysis下的Packet Deatails面板。扩展这一栏会发现报文显示为duplicate ACK。接下来几个报文重复此过程。如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_014.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;此文件中的第四个报文是发送端所发出具有错误序列号①的另一个数据块。因此，接收端发送第二个重复ACK②。接收端又收到一个乱序报文③。从而触发了第三以及最后一个重复ACK④.&lt;/p&gt;
+
+&lt;p&gt;一旦发送方接收到接收方所发来的第三个重复ACK，它就会暂停所有传输报文并且重传丢失报文，下图显示了快速重传过程：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image4_015.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;重传报文同样可以通过Packet List面板的Info栏观察到。报文呈现黑色背景红色字体。这个报文的SEQ/ACK Analysis截面告诉我们这可能是一个快速重传帧。（标识报文为快速重传的信息不是报文本身所包含的内容，而是Wireshark的功能）。最后一个报文是接收到快速重传的ACK。&lt;/p&gt;
+
+&lt;h2 id=&#34;一站式学习wireshark-五-tcp窗口与拥塞处理:63321ed1160c3241a0cbdb95781acdad&#34;&gt;一站式学习Wireshark（五）：TCP窗口与拥塞处理&lt;/h2&gt;
+
+&lt;h3 id=&#34;介绍-1:63321ed1160c3241a0cbdb95781acdad&#34;&gt;介绍&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;TCP通过滑动窗口机制检测丢包，并在丢包发生时调整数据传输速率。滑动窗口机制利用数据接收端的接收窗口来控制数据流。&lt;/p&gt;
+
+&lt;p&gt;接收窗口值由数据接收端指定，以字节数形式存储于TCP报文头，并告知传输设备有多少数据将会存储在TCP缓冲区。缓冲区就是数据暂时放置的地方，直至传递至应用层协议等待处理。因此，发送端每次只能发送Window Size字段指定的数据量。为了使发送端继续传送数据，接收端必须发送确认信息：之前的数据接收到了。同时必须对占用缓冲区的数据进行处理以释放缓存空间。下图显示了接收窗口是如何工作的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/learning_wireshark/image5_002.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
