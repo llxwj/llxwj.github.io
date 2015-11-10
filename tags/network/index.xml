@@ -37,6 +37,47 @@ HTTPS的，但是比较全。下面是伯乐博客的转载，打开速度比较
 &lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/73482/&#34;&gt;七:Statistics统计工具功能详解与应用&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/74018/&#34;&gt;八:应用Wireshark过滤条件抓取特定数据流&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;wireshark中的数据快速转变为c数组进行分析:ac986bb9732f6c9f1ccb7273506fe224&#34;&gt;Wireshark中的数据快速转变为C数组进行分析&lt;/h2&gt;
+
+&lt;p&gt;在Wireshark中抓取到数据包的时候,如果是私有数据协议的,那么就需要到数据进行分析,
+为了配合分析,一般会定义相应数据的C结构体,这时候,为了验证是否正确,需要把数据包
+的数据导入到代码中进行解码, 每次频繁操作确实麻烦,这里发现一个小的技巧,可以快速
+的拿到数据.&lt;/p&gt;
+
+&lt;p&gt;如我们要拿到下图中选中的UDP数据包中包含的8个字节的数据:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/udp_package.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;在Data哪一项中右击,按下图弹出的菜单选项复制数据:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/copy_package_data.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;然后打开WinHex,新建一个空白文件,在Offset 0处,点击右键,弹出菜单选择&amp;rdquo;编辑&amp;rdquo;,再在
+弹出的菜单中选择&amp;rdquo;剪切板数据&amp;hellip;&amp;ldquo;,再选择&amp;rdquo;粘贴&amp;rdquo;,再弹出的对话框中选择&amp;rdquo;确定&amp;rdquo;即可,
+这时弹出下面的对话框,选择&amp;rdquo;ASCII Hex&amp;rdquo;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/winhex_paste.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;之后数据为下图:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/winhex_display.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;选中这8个字节数据后,点击右键,选择&amp;rdquo;编辑&amp;rdquo;-&amp;gt;&amp;ldquo;复制选块&amp;rdquo;-&amp;gt;&amp;ldquo;C 源码&amp;rdquo;,然后到代码编辑器
+中,点击&amp;rdquo;粘贴&amp;rdquo;,这样数据就复制过来了,可以转换为结构体指针,进行快速解码了.如果结
+构体成员非常多,这样很便利.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;unsigned char data[8] = {
+    0x0A, 0x0A, 0x07, 0x4E, 0x3B, 0xC0, 0x00, 0x00
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是我觉得像Wireshark这样的工具应该有插件机制或者其他的方法技巧,可以直接做到,
+只是我不知道而已.&lt;/p&gt;
 </description>
     </item>
     

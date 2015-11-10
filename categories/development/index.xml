@@ -25,15 +25,15 @@
 
 &lt;p&gt;本文记录一种比较好的做法：&lt;/p&gt;
 
-&lt;p&gt;第一步，克隆远程仓库时，用env命令设置GIT_SSL_NO_VERIFY环境变量为&amp;rdquo;ture&amp;rdquo;，并同时调用正常的git clone命令。完整的命令如下：
-&lt;code&gt;bash
-env GIT_SSL_NO_VERIFY=true git clone https://&amp;lt;host_name/git/project.git
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;第一步，克隆远程仓库时，用env命令设置GIT_SSL_NO_VERIFY环境变量为&amp;rdquo;ture&amp;rdquo;，并同时调用正常的git clone命令。完整的命令如下：&lt;/p&gt;
 
-&lt;p&gt;第二步，在克隆完毕的仓库中将http.sslVerify设置为&amp;rdquo;false&amp;rdquo;。完整的命令如下：
-&lt;code&gt;bash
-git config http.sslVerify &amp;quot;false&amp;quot;
-&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;env GIT_SSL_NO_VERIFY=true git clone https://&amp;lt;host_name/git/project.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第二步，在克隆完毕的仓库中将http.sslVerify设置为&amp;rdquo;false&amp;rdquo;。完整的命令如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git config http.sslVerify &amp;quot;false&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;点评：
 以上方法应该是Git处理可信任的SSL临时证书很好的方法，第一步使用env命令保证了忽略证书错误是单次行为，不会成为默认的设置。第二次，则把忽略证书错误的设置限定在特定的仓库，避免扩大该设置的适用范围而引起的潜在安全风险。&lt;/p&gt;
@@ -57,6 +57,12 @@ git config --global core.safecrlf true
 &lt;h2 id=&#34;将某个文件恢复到指定的版本:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;将某个文件恢复到指定的版本&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git checkout &amp;lt;6位开头的sha1编码&amp;gt; &amp;lt;path/to/file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;查看某个文件的修改历史:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;查看某个文件的修改历史&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git log --pretty=online 文件名称
+git show &amp;lt;SHA Code&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

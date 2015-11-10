@@ -72,9 +72,9 @@ libdvbpsi 2.0.0(source,configure/make/make install)
 cunit 2.1.3(source,aclocal/autoconf/autoheader/automake/configure/make/make install)
 </code></pre>
 
-<p>编译SDL时遇到如下的问题:
-<code>
-libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
+<p>编译SDL时遇到如下的问题:</p>
+
+<pre><code>libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
 In file included from ./src/video/x11/SDL_x11video.h:50:0,
                  from ./src/video/x11/SDL_x11dga_c.h:24,
                  from ./src/video/x11/SDL_x11dga.c:30:
@@ -83,10 +83,11 @@ In file included from ./src/video/x11/SDL_x11video.h:50:0,
                                  ^
 compilation terminated.
 make: *** [build/SDL_x11dga.lo] Error 1
-</code>
-通过如下的方法安装一个开发包,然后再次编译就正常了.
-<code>bash
-/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
+</code></pre>
+
+<p>通过如下的方法安装一个开发包,然后再次编译就正常了.</p>
+
+<pre><code class="language-bash">/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -124,39 +125,43 @@ Setting up libxext-dev:i386 (2:1.3.2-1ubuntu0.0.14.04.1) ...
 Setting up x11proto-video-dev (2.3.2-1) ...
 Setting up libxv-dev:i386 (2:1.0.10-1) ...
 /sdl/SDL-1.2.15 $
-</code></p>
+</code></pre>
 
-<p>在安装cunit时遇到
-<code>bash
-configure.in:211: error: required file 'config.h.in' not found
-</code>
-解决方法是在执行<code>automake --add-missing</code>之前执行autoheader,生成config.h.in
-<code>bash
-sed: can't read ./ltmain.sh: No such file or directory
+<p>在安装cunit时遇到</p>
+
+<pre><code class="language-bash">configure.in:211: error: required file 'config.h.in' not found
+</code></pre>
+
+<p>解决方法是在执行<code>automake --add-missing</code>之前执行autoheader,生成config.h.in</p>
+
+<pre><code class="language-bash">sed: can't read ./ltmain.sh: No such file or directory
 sed: can't read libtoolT: No such file or directory
-</code>
-解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
+</code></pre>
+
+<p>解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
 默认执行make install后,没有安装到系统的/usr/local目录下,是安装到
 /home/user/CUnitHome下了.可以将include/lib/pkgconfig/目录下的文件分别拷贝到相
 应的目录下.</p>
 
-<p>一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:
-<code>bash
-./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
-</code>
-解决方法:<code>sudo ldconfig</code>
-Run ldconfig as root to update the cache - if that still doesn&rsquo;t help, you need to add the path to the file ld.so.conf (just type it in on its own line) or better yet, add the entry to a new file (easier to delete) in directory ld.so.conf.d.</p>
+<p>一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:</p>
 
-<p>如果出现如下的错误,干脆直接用<code>./configure --prefix=/usr/local</code> 然后直接<code>make install</code>搞定.
-<code>bash
-$ sudo ldconfig
+<pre><code class="language-bash">./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
+</code></pre>
+
+<p>解决方法:<code>sudo ldconfig</code></p>
+
+<p>Run ldconfig as root to update the cache - if that still doesn&rsquo;t help, you need to add the path to the file ld.so.conf (just type it in on its own line) or better yet, add the entry to a new file (easier to delete) in directory ld.so.conf.d.</p>
+
+<p>如果出现如下的错误,干脆直接用<code>./configure --prefix=/usr/local</code> 然后直接<code>make install</code>搞定.</p>
+
+<pre><code class="language-bash">$ sudo ldconfig
 /sbin/ldconfig.real: /usr/local/lib/libcunit.so.1 is not a symbolic link
-</code></p>
+</code></pre>
 
-<p>交叉编译cunit
-<code>bash
-./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
-</code></p>
+<p>交叉编译cunit</p>
+
+<pre><code class="language-bash">./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
+</code></pre>
 
 <p>字体环境</p>
 
@@ -236,49 +241,39 @@ root    ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 </code></pre>
 
-<p>更改为
-``` bash
-#</p>
+<p>更改为</p>
 
-<h1 id="this-file-must-be-edited-with-the-visudo-command-as-root:34fe9f2d9cc3cd7e319ca75e7da08332">This file MUST be edited with the &lsquo;visudo&rsquo; command as root.</h1>
-
-<p>#</p>
-
-<h1 id="please-consider-adding-local-content-in-etc-sudoers-d-instead-of:34fe9f2d9cc3cd7e319ca75e7da08332">Please consider adding local content in /etc/sudoers.d/ instead of</h1>
-
-<h1 id="directly-modifying-this-file:34fe9f2d9cc3cd7e319ca75e7da08332">directly modifying this file.</h1>
-
-<p>#</p>
-
-<h1 id="see-the-man-page-for-details-on-how-to-write-a-sudoers-file:34fe9f2d9cc3cd7e319ca75e7da08332">See the man page for details on how to write a sudoers file.</h1>
-
-<p>#
+<pre><code class="language-bash">#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
 Defaults    env_reset
 Defaults    mail_badpass
-Defaults    secure_path=&ldquo;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&rdquo;</p>
+Defaults    secure_path=&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
 
-<h1 id="host-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332">Host alias specification</h1>
+# Host alias specification
 
-<h1 id="user-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332">User alias specification</h1>
+# User alias specification
 
-<h1 id="cmnd-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332">Cmnd alias specification</h1>
+# Cmnd alias specification
 
-<h1 id="user-privilege-specification:34fe9f2d9cc3cd7e319ca75e7da08332">User privilege specification</h1>
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
 
-<p>root    ALL=(ALL:ALL) ALL</p>
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
 
-<h1 id="members-of-the-admin-group-may-gain-root-privileges:34fe9f2d9cc3cd7e319ca75e7da08332">Members of the admin group may gain root privileges</h1>
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) NOPASSWD:ALL
 
-<p>%admin ALL=(ALL) ALL</p>
+# See sudoers(5) for more information on &quot;#include&quot; directives:
 
-<h1 id="allow-members-of-group-sudo-to-execute-any-command:34fe9f2d9cc3cd7e319ca75e7da08332">Allow members of group sudo to execute any command</h1>
-
-<p>%sudo   ALL=(ALL:ALL) NOPASSWD:ALL</p>
-
-<h1 id="see-sudoers-5-for-more-information-on-include-directives:34fe9f2d9cc3cd7e319ca75e7da08332">See sudoers(5) for more information on &ldquo;#include&rdquo; directives:</h1>
-
-<p>#includedir /etc/sudoers.d
-```</p>
+#includedir /etc/sudoers.d
+</code></pre>
 
 </div>
 

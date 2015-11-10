@@ -37,6 +37,47 @@ HTTPS的，但是比较全。下面是伯乐博客的转载，打开速度比较
 &lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/73482/&#34;&gt;七:Statistics统计工具功能详解与应用&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://blog.jobbole.com/74018/&#34;&gt;八:应用Wireshark过滤条件抓取特定数据流&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;wireshark中的数据快速转变为c数组进行分析:ac986bb9732f6c9f1ccb7273506fe224&#34;&gt;Wireshark中的数据快速转变为C数组进行分析&lt;/h2&gt;
+
+&lt;p&gt;在Wireshark中抓取到数据包的时候,如果是私有数据协议的,那么就需要到数据进行分析,
+为了配合分析,一般会定义相应数据的C结构体,这时候,为了验证是否正确,需要把数据包
+的数据导入到代码中进行解码, 每次频繁操作确实麻烦,这里发现一个小的技巧,可以快速
+的拿到数据.&lt;/p&gt;
+
+&lt;p&gt;如我们要拿到下图中选中的UDP数据包中包含的8个字节的数据:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/udp_package.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;在Data哪一项中右击,按下图弹出的菜单选项复制数据:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/copy_package_data.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;然后打开WinHex,新建一个空白文件,在Offset 0处,点击右键,弹出菜单选择&amp;rdquo;编辑&amp;rdquo;,再在
+弹出的菜单中选择&amp;rdquo;剪切板数据&amp;hellip;&amp;ldquo;,再选择&amp;rdquo;粘贴&amp;rdquo;,再弹出的对话框中选择&amp;rdquo;确定&amp;rdquo;即可,
+这时弹出下面的对话框,选择&amp;rdquo;ASCII Hex&amp;rdquo;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/winhex_paste.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;之后数据为下图:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../image/wireshark_usage/winhex_display.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;选中这8个字节数据后,点击右键,选择&amp;rdquo;编辑&amp;rdquo;-&amp;gt;&amp;ldquo;复制选块&amp;rdquo;-&amp;gt;&amp;ldquo;C 源码&amp;rdquo;,然后到代码编辑器
+中,点击&amp;rdquo;粘贴&amp;rdquo;,这样数据就复制过来了,可以转换为结构体指针,进行快速解码了.如果结
+构体成员非常多,这样很便利.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;unsigned char data[8] = {
+    0x0A, 0x0A, 0x07, 0x4E, 0x3B, 0xC0, 0x00, 0x00
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是我觉得像Wireshark这样的工具应该有插件机制或者其他的方法技巧,可以直接做到,
+只是我不知道而已.&lt;/p&gt;
 </description>
     </item>
     
@@ -105,15 +146,15 @@ stderr也重定向到stdout：&lt;/p&gt;
 
 &lt;p&gt;本文记录一种比较好的做法：&lt;/p&gt;
 
-&lt;p&gt;第一步，克隆远程仓库时，用env命令设置GIT_SSL_NO_VERIFY环境变量为&amp;rdquo;ture&amp;rdquo;，并同时调用正常的git clone命令。完整的命令如下：
-&lt;code&gt;bash
-env GIT_SSL_NO_VERIFY=true git clone https://&amp;lt;host_name/git/project.git
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;第一步，克隆远程仓库时，用env命令设置GIT_SSL_NO_VERIFY环境变量为&amp;rdquo;ture&amp;rdquo;，并同时调用正常的git clone命令。完整的命令如下：&lt;/p&gt;
 
-&lt;p&gt;第二步，在克隆完毕的仓库中将http.sslVerify设置为&amp;rdquo;false&amp;rdquo;。完整的命令如下：
-&lt;code&gt;bash
-git config http.sslVerify &amp;quot;false&amp;quot;
-&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;env GIT_SSL_NO_VERIFY=true git clone https://&amp;lt;host_name/git/project.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第二步，在克隆完毕的仓库中将http.sslVerify设置为&amp;rdquo;false&amp;rdquo;。完整的命令如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git config http.sslVerify &amp;quot;false&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;点评：
 以上方法应该是Git处理可信任的SSL临时证书很好的方法，第一步使用env命令保证了忽略证书错误是单次行为，不会成为默认的设置。第二次，则把忽略证书错误的设置限定在特定的仓库，避免扩大该设置的适用范围而引起的潜在安全风险。&lt;/p&gt;
@@ -137,6 +178,12 @@ git config --global core.safecrlf true
 &lt;h2 id=&#34;将某个文件恢复到指定的版本:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;将某个文件恢复到指定的版本&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git checkout &amp;lt;6位开头的sha1编码&amp;gt; &amp;lt;path/to/file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;查看某个文件的修改历史:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;查看某个文件的修改历史&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git log --pretty=online 文件名称
+git show &amp;lt;SHA Code&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
@@ -173,9 +220,9 @@ libdvbpsi 2.0.0(source,configure/make/make install)
 cunit 2.1.3(source,aclocal/autoconf/autoheader/automake/configure/make/make install)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;编译SDL时遇到如下的问题:
-&lt;code&gt;
-libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
+&lt;p&gt;编译SDL时遇到如下的问题:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;libtool: compile:  gcc -g -O2 -I./include -D_GNU_SOURCE=1 -fvisibility=hidden -DXTHREADS -D_REENTRANT -DHAVE_LINUX_VERSION_H -Wall -c ./src/video/x11/SDL_x11dga.c  -fPIC -DPIC -o build/.libs/SDL_x11dga.o
 In file included from ./src/video/x11/SDL_x11video.h:50:0,
                  from ./src/video/x11/SDL_x11dga_c.h:24,
                  from ./src/video/x11/SDL_x11dga.c:30:
@@ -184,10 +231,11 @@ In file included from ./src/video/x11/SDL_x11video.h:50:0,
                                  ^
 compilation terminated.
 make: *** [build/SDL_x11dga.lo] Error 1
-&lt;/code&gt;
-通过如下的方法安装一个开发包,然后再次编译就正常了.
-&lt;code&gt;bash
-/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过如下的方法安装一个开发包,然后再次编译就正常了.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/sdl/SDL-1.2.15 $ sudo apt-get install libxv-dev
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -225,39 +273,43 @@ Setting up libxext-dev:i386 (2:1.3.2-1ubuntu0.0.14.04.1) ...
 Setting up x11proto-video-dev (2.3.2-1) ...
 Setting up libxv-dev:i386 (2:1.0.10-1) ...
 /sdl/SDL-1.2.15 $
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;在安装cunit时遇到
-&lt;code&gt;bash
-configure.in:211: error: required file &#39;config.h.in&#39; not found
-&lt;/code&gt;
-解决方法是在执行&lt;code&gt;automake --add-missing&lt;/code&gt;之前执行autoheader,生成config.h.in
-&lt;code&gt;bash
-sed: can&#39;t read ./ltmain.sh: No such file or directory
+&lt;p&gt;在安装cunit时遇到&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;configure.in:211: error: required file &#39;config.h.in&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决方法是在执行&lt;code&gt;automake --add-missing&lt;/code&gt;之前执行autoheader,生成config.h.in&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed: can&#39;t read ./ltmain.sh: No such file or directory
 sed: can&#39;t read libtoolT: No such file or directory
-&lt;/code&gt;
-解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决方法是直接执行./bootstrap,实际上面的繁琐步骤可以用bootstrap/make/make install 替代.
 默认执行make install后,没有安装到系统的/usr/local目录下,是安装到
 /home/user/CUnitHome下了.可以将include/lib/pkgconfig/目录下的文件分别拷贝到相
 应的目录下.&lt;/p&gt;
 
-&lt;p&gt;一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:
-&lt;code&gt;bash
-./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
-&lt;/code&gt;
-解决方法:&lt;code&gt;sudo ldconfig&lt;/code&gt;
-Run ldconfig as root to update the cache - if that still doesn&amp;rsquo;t help, you need to add the path to the file ld.so.conf (just type it in on its own line) or better yet, add the entry to a new file (easier to delete) in directory ld.so.conf.d.&lt;/p&gt;
+&lt;p&gt;一般执行完成make insatll后,直接使用动态链接库后,可能会报如下的错误:&lt;/p&gt;
 
-&lt;p&gt;如果出现如下的错误,干脆直接用&lt;code&gt;./configure --prefix=/usr/local&lt;/code&gt; 然后直接&lt;code&gt;make install&lt;/code&gt;搞定.
-&lt;code&gt;bash
-$ sudo ldconfig
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./program_name: error while loading shared libraries: libcunit.so.1: cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决方法:&lt;code&gt;sudo ldconfig&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Run ldconfig as root to update the cache - if that still doesn&amp;rsquo;t help, you need to add the path to the file ld.so.conf (just type it in on its own line) or better yet, add the entry to a new file (easier to delete) in directory ld.so.conf.d.&lt;/p&gt;
+
+&lt;p&gt;如果出现如下的错误,干脆直接用&lt;code&gt;./configure --prefix=/usr/local&lt;/code&gt; 然后直接&lt;code&gt;make install&lt;/code&gt;搞定.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ldconfig
 /sbin/ldconfig.real: /usr/local/lib/libcunit.so.1 is not a symbolic link
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;交叉编译cunit
-&lt;code&gt;bash
-./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;交叉编译cunit&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --host=arm-linux --enable-shared=no --disable-dependency-tracking --prefix=/home/CUnitHome
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;字体环境&lt;/p&gt;
 
@@ -337,49 +389,39 @@ root    ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;更改为
-``` bash
-#&lt;/p&gt;
+&lt;p&gt;更改为&lt;/p&gt;
 
-&lt;h1 id=&#34;this-file-must-be-edited-with-the-visudo-command-as-root:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;This file MUST be edited with the &amp;lsquo;visudo&amp;rsquo; command as root.&lt;/h1&gt;
-
-&lt;p&gt;#&lt;/p&gt;
-
-&lt;h1 id=&#34;please-consider-adding-local-content-in-etc-sudoers-d-instead-of:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Please consider adding local content in /etc/sudoers.d/ instead of&lt;/h1&gt;
-
-&lt;h1 id=&#34;directly-modifying-this-file:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;directly modifying this file.&lt;/h1&gt;
-
-&lt;p&gt;#&lt;/p&gt;
-
-&lt;h1 id=&#34;see-the-man-page-for-details-on-how-to-write-a-sudoers-file:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;See the man page for details on how to write a sudoers file.&lt;/h1&gt;
-
-&lt;p&gt;#
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#
+# This file MUST be edited with the &#39;visudo&#39; command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
 Defaults    env_reset
 Defaults    mail_badpass
-Defaults    secure_path=&amp;ldquo;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;rdquo;&lt;/p&gt;
+Defaults    secure_path=&amp;quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;quot;
 
-&lt;h1 id=&#34;host-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Host alias specification&lt;/h1&gt;
+# Host alias specification
 
-&lt;h1 id=&#34;user-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;User alias specification&lt;/h1&gt;
+# User alias specification
 
-&lt;h1 id=&#34;cmnd-alias-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Cmnd alias specification&lt;/h1&gt;
+# Cmnd alias specification
 
-&lt;h1 id=&#34;user-privilege-specification:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;User privilege specification&lt;/h1&gt;
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
 
-&lt;p&gt;root    ALL=(ALL:ALL) ALL&lt;/p&gt;
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
 
-&lt;h1 id=&#34;members-of-the-admin-group-may-gain-root-privileges:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Members of the admin group may gain root privileges&lt;/h1&gt;
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) NOPASSWD:ALL
 
-&lt;p&gt;%admin ALL=(ALL) ALL&lt;/p&gt;
+# See sudoers(5) for more information on &amp;quot;#include&amp;quot; directives:
 
-&lt;h1 id=&#34;allow-members-of-group-sudo-to-execute-any-command:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;Allow members of group sudo to execute any command&lt;/h1&gt;
-
-&lt;p&gt;%sudo   ALL=(ALL:ALL) NOPASSWD:ALL&lt;/p&gt;
-
-&lt;h1 id=&#34;see-sudoers-5-for-more-information-on-include-directives:34fe9f2d9cc3cd7e319ca75e7da08332&#34;&gt;See sudoers(5) for more information on &amp;ldquo;#include&amp;rdquo; directives:&lt;/h1&gt;
-
-&lt;p&gt;#includedir /etc/sudoers.d
-```&lt;/p&gt;
+#includedir /etc/sudoers.d
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
